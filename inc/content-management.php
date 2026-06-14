@@ -354,3 +354,61 @@ function paijo_flush_rewrites_on_term_change(): void {
 	paijo_konten_khusus_rewrites();
 	flush_rewrite_rules();
 }
+
+function paijo_get_toko_metric( int $post_id, string $metric ): int {
+	$allowed = array( 'views', 'loves', 'shares' );
+
+	if ( ! in_array( $metric, $allowed, true ) || 'toko_bercerita' !== get_post_type( $post_id ) ) {
+		return 0;
+	}
+
+	return max( 0, (int) get_post_meta( $post_id, '_paijo_toko_' . $metric, true ) );
+}
+
+function paijo_update_toko_metric( int $post_id, string $metric, int $delta = 1 ): int {
+	$count = paijo_get_toko_metric( $post_id, $metric );
+	$count = max( 0, $count + $delta );
+	update_post_meta( $post_id, '_paijo_toko_' . $metric, $count );
+
+	return $count;
+}
+
+function paijo_format_toko_metric( int $count ): string {
+	if ( $count >= 1000000 ) {
+		return number_format_i18n( $count / 1000000, 1 ) . 'M';
+	}
+
+	if ( $count >= 1000 ) {
+		return number_format_i18n( $count / 1000, 1 ) . 'K';
+	}
+
+	return number_format_i18n( $count );
+}
+
+add_action( 'wp_ajax_paijo_toko_metric', 'paijo_handle_toko_metric_ajax' );
+add_action( 'wp_ajax_nopriv_paijo_toko_metric', 'paijo_handle_toko_metric_ajax' );
+function paijo_handle_toko_metric_ajax(): void {
+	check_ajax_referer( 'paijo_toko_metric', 'nonce' );
+
+	$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
+	$metric  = isset( $_POST['metric'] ) ? sanitize_key( wp_unslash( $_POST['metric'] ) ) : '';
+	$delta   = isset( $_POST['delta'] ) ? (int) $_POST['delta'] : 1;
+
+	if ( ! $post_id || ! in_array( $metric, array( 'views', 'loves', 'shares' ), true ) || 'toko_bercerita' !== get_post_type( $post_id ) ) {
+		wp_send_json_error(
+			array(
+				'message' => __( 'Invalid metric request.', 'paijo' ),
+			),
+			400
+		);
+	}
+
+	$count = paijo_update_toko_metric( $post_id, $metric, $delta );
+
+	wp_send_json_success(
+		array(
+			'count'     => $count,
+			'formatted' => paijo_format_toko_metric( $count ),
+		)
+	);
+}

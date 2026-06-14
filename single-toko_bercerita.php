@@ -13,21 +13,25 @@ get_header();
 		<?php
 		while ( have_posts() ) :
 			the_post();
-			$embed_url = get_post_meta( get_the_ID(), '_paijo_toko_embed_url', true );
+			$post_id     = get_the_ID();
+			$embed_url   = get_post_meta( $post_id, '_paijo_toko_embed_url', true );
+			$views_count = paijo_update_toko_metric( $post_id, 'views' );
+			$loves_count = paijo_get_toko_metric( $post_id, 'loves' );
+			$shares_count = paijo_get_toko_metric( $post_id, 'shares' );
+			$metric_nonce = wp_create_nonce( 'paijo_toko_metric' );
+			$archive_url  = get_post_type_archive_link( 'toko_bercerita' ) ?: home_url( '/pj-feed/' );
 			
 			// Use the custom logo asset requested by the user
 			$logo_url = esc_url( PAIJO_URI . '/assets/images/instagram-logo.jpg' );
-
-			// Get current user details for comments
-			if ( is_user_logged_in() ) {
-				$current_user = wp_get_current_user();
-				$user_avatar = get_avatar_url( $current_user->ID, array( 'size' => 32 ) );
-				$user_initial = strtoupper( substr( $current_user->display_name, 0, 1 ) );
-			} else {
-				$user_avatar = '';
-				$user_initial = 'G';
-			}
 			?>
+
+			<nav class="mb-4 flex flex-wrap items-center gap-2 font-sans text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-400 dark:text-neutral-500" aria-label="<?php esc_attr_e( 'Breadcrumb', 'paijo' ); ?>">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="transition-colors hover:text-[#f1818f]"><?php esc_html_e( 'Beranda', 'paijo' ); ?></a>
+				<span aria-hidden="true">/</span>
+				<a href="<?php echo esc_url( $archive_url ); ?>" class="transition-colors hover:text-[#f1818f]"><?php esc_html_e( 'PJ Feed', 'paijo' ); ?></a>
+				<span aria-hidden="true">/</span>
+				<span class="max-w-[220px] truncate text-neutral-600 dark:text-neutral-300 sm:max-w-md" aria-current="page"><?php the_title(); ?></span>
+			</nav>
 			
 			<!-- Split Screen Container (Kumparan Style Layout) -->
 			<div class="flex flex-col md:flex-row w-full max-w-[1000px] mx-auto bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 md:h-[720px] rounded-3xl overflow-hidden shadow-xl mb-12">
@@ -100,13 +104,13 @@ get_header();
 									</svg>
 								</div>
 								<span class="text-[10px] text-neutral-500 dark:text-neutral-400 font-sans">
-									<?php echo esc_html( human_time_diff( get_the_time('U'), current_time('timestamp') ) ); ?> yang lalu
+									<?php echo esc_html( human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ) ) ); ?> yang lalu · <?php echo esc_html( get_the_date( 'j F Y' ) ); ?>
 								</span>
 							</div>
 						</div>
 					</div>
 
-					<!-- Scrollable Content: Title + CMS Caption + Comments -->
+					<!-- Scrollable Content: Title + CMS Caption + Actions -->
 					<div class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-none" id="sidebar-scroll-content">
 						<!-- Post Title & Content/Caption -->
 						<div class="font-sans">
@@ -121,89 +125,145 @@ get_header();
 						<!-- Horizontal Separator -->
 						<div class="border-t border-neutral-100 dark:border-neutral-800/60 my-2"></div>
 
-						<!-- Comments Section Area -->
-						<div class="space-y-4">
-							<h3 class="text-xs font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500 mb-2">Komentar</h3>
-							<?php
-							$comments = get_comments(
-								array(
-									'post_id' => get_the_ID(),
-									'status'  => 'approve',
-									'order'   => 'ASC',
-								)
-							);
-
-							if ( empty( $comments ) ) :
-								?>
-								<div class="text-center py-8 text-neutral-400 dark:text-neutral-500 text-xs font-sans">
-									<?php esc_html_e( 'Belum ada komentar. Mulai obrolan!', 'paijo' ); ?>
-								</div>
-							<?php
-							else :
-								foreach ( $comments as $comment ) :
-									$avatar_url = get_avatar_url( $comment->comment_author_email, array( 'size' => 32 ) );
-									?>
-									<div class="flex gap-3">
-										<?php if ( $avatar_url ) : ?>
-											<img class="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-800 shrink-0 object-cover" src="<?php echo esc_url( $avatar_url ); ?>" alt="<?php echo esc_attr( $comment->comment_author ); ?>">
-										<?php else : ?>
-											<div class="w-8 h-8 rounded-full bg-neutral-100 dark:bg-neutral-850 flex items-center justify-center shrink-0 font-sans text-[10px] font-bold text-neutral-500 dark:text-neutral-400">
-												<?php echo esc_html( strtoupper( substr( $comment->comment_author, 0, 1 ) ) ); ?>
-											</div>
-										<?php endif; ?>
-										
-										<div class="flex-1 flex flex-col">
-											<div>
-												<span class="font-sans font-bold text-xs mr-1 text-neutral-900 dark:text-white"><?php echo esc_html( $comment->comment_author ); ?></span>
-												<span class="text-xs text-neutral-600 dark:text-neutral-300 font-sans leading-relaxed"><?php echo esc_html( $comment->comment_content ); ?></span>
-											</div>
-											<span class="text-[9px] text-neutral-400 dark:text-neutral-500 mt-1"><?php echo esc_html( human_time_diff( strtotime( $comment->comment_date ), current_time('timestamp') ) ); ?> yang lalu</span>
-										</div>
-									</div>
-								<?php
-								endforeach;
-							endif;
-							?>
-						</div>
-					</div>
-
-					<!-- Bottom Comment Input Form -->
-					<div class="p-4 border-t border-neutral-200 dark:border-neutral-800/80 bg-white dark:bg-neutral-900 shrink-0">
-						<form id="comment-form" action="<?php echo esc_url( site_url( '/wp-comments-post.php' ) ); ?>" method="post" class="flex items-center gap-3">
-							<input type="hidden" name="comment_post_ID" value="<?php echo get_the_ID(); ?>" id="comment_post_ID" />
-							
-							<div class="flex-1 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 py-3 flex flex-col gap-2">
-								<input type="text" name="comment" id="comment-input" placeholder="Tulis komentar..." class="w-full bg-transparent border-0 outline-none text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400" required />
-								
-								<?php if ( ! is_user_logged_in() ) : ?>
-									<!-- Slide-down guest input fields on focus -->
-									<div id="guest-fields" class="hidden flex gap-2 pt-2 border-t border-neutral-200/60 dark:border-neutral-800/60">
-										<input type="text" name="author" placeholder="Nama" class="w-1/2 bg-transparent border-b border-neutral-200 dark:border-neutral-800 py-1 text-xs text-neutral-900 dark:text-neutral-100 outline-none" required />
-										<input type="email" name="email" placeholder="Email" class="w-1/2 bg-transparent border-b border-neutral-200 dark:border-neutral-800 py-1 text-xs text-neutral-900 dark:text-neutral-100 outline-none" required />
-									</div>
-								<?php endif; ?>
-							</div>
-							
-							<button type="submit" class="w-12 h-12 rounded-full bg-neutral-100 dark:bg-neutral-950 hover:bg-[#f1818f] hover:text-white text-neutral-600 dark:text-neutral-400 transition-colors flex items-center justify-center shrink-0 shadow-sm cursor-pointer">
-								<!-- Paper Plane SVG Icon -->
-								<svg class="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
-									<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+						<div class="flex items-center gap-6 border-t border-neutral-100 dark:border-neutral-800/60 pt-1 font-sans text-neutral-950 dark:text-white" data-toko-actions data-post-id="<?php echo esc_attr( $post_id ); ?>" data-ajax-url="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" data-nonce="<?php echo esc_attr( $metric_nonce ); ?>" data-title="<?php echo esc_attr( get_the_title() ); ?>" data-url="<?php echo esc_url( get_permalink() ); ?>">
+							<div class="flex items-center gap-2 text-sm font-bold text-neutral-500 dark:text-neutral-400" aria-label="<?php echo esc_attr( sprintf( __( '%s views', 'paijo' ), paijo_format_toko_metric( $views_count ) ) ); ?>">
+								<svg class="h-7 w-7 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="1.9">
+									<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+									<circle cx="12" cy="12" r="3" />
 								</svg>
+								<span data-toko-count="views"><?php echo esc_html( paijo_format_toko_metric( $views_count ) ); ?></span>
+							</div>
+
+							<button type="button" class="group flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#f1818f] focus:outline-none cursor-pointer" data-toko-action="love" aria-pressed="false" aria-label="<?php esc_attr_e( 'Love this post', 'paijo' ); ?>">
+								<svg class="h-8 w-8 fill-none stroke-current transition-colors" viewBox="0 0 24 24" stroke-width="1.9">
+									<path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-7.6 1.2-1.2a5.4 5.4 0 0 0 0-7.6z" />
+								</svg>
+								<span data-toko-count="loves"><?php echo esc_html( paijo_format_toko_metric( $loves_count ) ); ?></span>
 							</button>
-						</form>
+
+							<button type="button" class="group flex items-center gap-2 text-sm font-bold transition-colors hover:text-[#f1818f] focus:outline-none cursor-pointer" data-toko-action="share" aria-label="<?php esc_attr_e( 'Share this post', 'paijo' ); ?>">
+								<svg class="h-8 w-8 fill-none stroke-current transition-colors" viewBox="0 0 24 24" stroke-width="1.9">
+									<circle cx="18" cy="5" r="3" />
+									<circle cx="6" cy="12" r="3" />
+									<circle cx="18" cy="19" r="3" />
+									<path d="M8.6 10.5 15.4 6.5" />
+									<path d="M8.6 13.5 15.4 17.5" />
+								</svg>
+								<span data-share-label><?php esc_html_e( 'Bagikan', 'paijo' ); ?></span>
+								<span class="text-neutral-500 dark:text-neutral-400" data-toko-count="shares"><?php echo esc_html( paijo_format_toko_metric( $shares_count ) ); ?></span>
+							</button>
+
+							<a href="<?php echo esc_url( $archive_url ); ?>" class="ml-auto flex h-11 w-11 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-950 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-white" aria-label="<?php esc_attr_e( 'Open PJ Feed archive', 'paijo' ); ?>">
+								<svg class="h-6 w-6 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="1.8">
+									<path d="M5 4v16" />
+									<path d="M5 5h12l-1.5 4L17 13H5" />
+								</svg>
+								<span class="sr-only"><?php esc_html_e( 'PJ Feed', 'paijo' ); ?></span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			
 			<script>
 			document.addEventListener('DOMContentLoaded', function() {
-				const commentInput = document.getElementById('comment-input');
-				const guestFields = document.getElementById('guest-fields');
-				
-				// Guest fields slide down on comment focus
-				if (commentInput && guestFields) {
-					commentInput.addEventListener('focus', function() {
-						guestFields.classList.remove('hidden');
+				const actionRoot = document.querySelector('[data-toko-actions]');
+
+				if (!actionRoot) {
+					return;
+				}
+
+				const postId = actionRoot.dataset.postId;
+				const ajaxUrl = actionRoot.dataset.ajaxUrl;
+				const nonce = actionRoot.dataset.nonce;
+				const postTitle = actionRoot.dataset.title;
+				const postUrl = actionRoot.dataset.url;
+				const loveButton = actionRoot.querySelector('[data-toko-action="love"]');
+				const shareButton = actionRoot.querySelector('[data-toko-action="share"]');
+				const shareLabel = actionRoot.querySelector('[data-share-label]');
+				const lovedKey = `paijo_toko_loved_${postId}`;
+
+				function updateMetric(metric, delta = 1) {
+					const body = new URLSearchParams({
+						action: 'paijo_toko_metric',
+						post_id: postId,
+						metric,
+						delta: String(delta),
+						nonce,
+					});
+
+					return fetch(ajaxUrl, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+						},
+						body,
+					})
+						.then((response) => response.json())
+						.then((payload) => {
+							if (!payload.success) {
+								throw new Error('Metric update failed');
+							}
+
+							const countNode = actionRoot.querySelector(`[data-toko-count="${metric}"]`);
+
+							if (countNode) {
+								countNode.textContent = payload.data.formatted;
+							}
+
+							return payload.data;
+						});
+				}
+
+				function setLovedState(isLoved) {
+					if (!loveButton) {
+						return;
+					}
+
+					loveButton.setAttribute('aria-pressed', isLoved ? 'true' : 'false');
+					loveButton.classList.toggle('border-[#f1818f]', isLoved);
+					loveButton.classList.toggle('text-[#f1818f]', isLoved);
+				}
+
+				setLovedState(localStorage.getItem(lovedKey) === '1');
+
+				if (loveButton) {
+					loveButton.addEventListener('click', function() {
+						const willLove = localStorage.getItem(lovedKey) !== '1';
+						setLovedState(willLove);
+						localStorage.setItem(lovedKey, willLove ? '1' : '0');
+
+						updateMetric('loves', willLove ? 1 : -1).catch(() => {
+							setLovedState(!willLove);
+							localStorage.setItem(lovedKey, willLove ? '0' : '1');
+						});
+					});
+				}
+
+				if (shareButton) {
+					shareButton.addEventListener('click', async function() {
+						updateMetric('shares');
+
+						try {
+							if (navigator.share) {
+								await navigator.share({
+									title: postTitle,
+									url: postUrl,
+								});
+							} else if (navigator.clipboard) {
+								await navigator.clipboard.writeText(postUrl);
+								if (shareLabel) {
+									shareLabel.textContent = 'Disalin';
+									setTimeout(() => {
+										shareLabel.textContent = 'Bagikan';
+									}, 1600);
+								}
+							}
+						} catch (error) {
+							if (error.name !== 'AbortError' && navigator.clipboard) {
+								await navigator.clipboard.writeText(postUrl);
+							}
+						}
 					});
 				}
 			});

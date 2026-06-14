@@ -46,7 +46,7 @@ $term_query = new WP_Query( $args );
 ?>
 
 <main id="main-content" class="paijo-section bg-paijo-card text-paijo-ink transition-colors duration-300 min-h-screen">
-	<div class="paijo-container max-w-6xl mx-auto">
+	<div class="paijo-container max-w-3xl mx-auto">
 		
 		<!-- Breadcrumbs -->
 		<nav class="flex items-center gap-2 text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4" aria-label="Breadcrumb">
@@ -56,7 +56,7 @@ $term_query = new WP_Query( $args );
 		</nav>
 
 		<!-- Header Section (Without Sort Icons) -->
-		<div class="max-w-3xl mb-8 border-b border-neutral-100 dark:border-neutral-800/60 pb-8">
+		<div class="w-full mb-8 border-b border-neutral-100 dark:border-neutral-800/60 pb-8">
 			<span class="inline-block bg-[#f1818f] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] mb-3">
 				<?php esc_html_e( 'Kategori Konten', 'paijo' ); ?>
 			</span>
@@ -77,14 +77,14 @@ $term_query = new WP_Query( $args );
 			<?php while ( $term_query->have_posts() ) : $term_query->the_post(); $post_count++; ?>
 				
 				<?php if ( 1 === $paged && 1 === $post_count ) : ?>
-					<!-- 1. Constrained Hero Header (First Post, Page 1 Only) -->
+					<!-- 1. Constrained Hero Header (First Post, Page 1 Only - Aligned to max-w-3xl) -->
 					<?php 
 					$hero_thumb = paijo_get_thumbnail_url( get_the_ID(), 'paijo-hero' ); 
 					$author_name = get_the_author();
 					$reading_time = paijo_get_reading_time();
 					$excerpt = paijo_get_card_excerpt( get_the_ID(), 28 );
 					?>
-					<div class="relative w-full aspect-[16/9] sm:aspect-[16/7] md:aspect-[16/6] bg-paijo-ink rounded-3xl overflow-hidden mb-10 group shadow-lg transition-all duration-300">
+					<div class="relative w-full aspect-[16/10] bg-paijo-ink rounded-3xl overflow-hidden mb-10 group shadow-lg transition-all duration-300">
 						<!-- Background Image -->
 						<?php if ( $hero_thumb ) : ?>
 							<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" src="<?php echo esc_url( $hero_thumb ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
@@ -94,21 +94,21 @@ $term_query = new WP_Query( $args );
 						<div class="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/55 to-[#050b14]/15 z-0"></div>
 
 						<!-- Content Overlay -->
-						<div class="relative z-10 h-full flex flex-col justify-end p-6 sm:p-10 md:p-12">
-							<div class="max-w-3xl">
+						<div class="relative z-10 h-full flex flex-col justify-end p-6 sm:p-10">
+							<div class="w-full">
 								<!-- Category Badge -->
 								<span class="inline-block bg-[#f1818f] text-white text-[9px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider mb-3">
 									<?php echo esc_html( $current_term->name ); ?>
 								</span>
 								
 								<!-- Title -->
-								<h2 class="text-xl sm:text-3xl md:text-4xl font-sans font-black text-white leading-tight tracking-tight mb-3 hover:text-[#f1818f] transition-colors">
+								<h2 class="text-xl sm:text-2xl md:text-3xl font-sans font-black text-white leading-tight tracking-tight mb-3 hover:text-[#f1818f] transition-colors">
 									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 								</h2>
 
 								<!-- Excerpt -->
 								<?php if ( $excerpt ) : ?>
-									<p class="hidden sm:block text-xs sm:text-sm text-neutral-200 line-clamp-2 max-w-2xl leading-relaxed mb-4">
+									<p class="hidden sm:block text-xs sm:text-sm text-neutral-200 line-clamp-2 leading-relaxed mb-4">
 										<?php echo esc_html( $excerpt ); ?>
 									</p>
 								<?php endif; ?>
@@ -140,7 +140,7 @@ $term_query = new WP_Query( $args );
 					if ( ! $has_list ) {
 						?>
 						<!-- List Header with Sort Controls -->
-						<div class="max-w-3xl mx-auto flex items-center justify-between mb-4 mt-8">
+						<div class="w-full flex items-center justify-between mb-4 mt-8">
 							<h3 class="text-xs font-black uppercase tracking-wider text-paijo-ink">
 								<?php esc_html_e( 'Daftar Artikel', 'paijo' ); ?>
 							</h3>
@@ -171,7 +171,7 @@ $term_query = new WP_Query( $args );
 						</div>
 						<?php
 						
-						echo '<div class="max-w-3xl mx-auto bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800/80 rounded-2xl px-6 sm:px-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-colors duration-300">';
+						echo '<div class="w-full bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800/80 rounded-2xl px-6 sm:px-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-colors duration-300">';
 						echo '<div class="divide-y divide-neutral-100 dark:divide-neutral-800/60">';
 						$has_list = true;
 					}
@@ -247,7 +247,7 @@ $term_query = new WP_Query( $args );
 
 			if ( ! empty( $pagination ) ) :
 				?>
-				<div class="max-w-3xl mx-auto mt-8">
+				<div class="w-full mt-8">
 					<nav class="flex justify-center items-center gap-2 py-6 border-t border-neutral-100 dark:border-neutral-800/60" aria-label="<?php esc_attr_e( 'Page navigation', 'paijo' ); ?>">
 						<?php
 						foreach ( $pagination as $page_link ) :
@@ -268,7 +268,7 @@ $term_query = new WP_Query( $args );
 			<?php wp_reset_postdata(); ?>
 
 		<?php else : ?>
-			<div class="max-w-2xl mx-auto py-12 text-center bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800/80 rounded-2xl p-8 transition-colors duration-300">
+			<div class="w-full py-12 text-center bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800/80 rounded-2xl p-8 transition-colors duration-300">
 				<p class="text-lg font-bold text-paijo-muted mb-4"><?php esc_html_e( 'Tidak ada artikel yang ditemukan dalam kategori ini.', 'paijo' ); ?></p>
 				<a href="<?php echo esc_url( get_term_link( $term_id, 'paijo_content_category' ) ); ?>" class="inline-block px-5 py-2.5 bg-paijo-accent text-white font-extrabold rounded-full hover:bg-neutral-900 transition-colors">
 					Lihat Semua Artikel

@@ -76,21 +76,63 @@ $btn_class = $is_home
 			<?php get_search_form(); ?>
 		</div>
 
-		<nav id="paijo-mobile-nav" class="hidden border border-t-0 border-white/10 py-5 px-4 bg-black/70 backdrop-blur-md text-white shadow-lg rounded-b-lg" data-paijo-mobile-nav aria-label="<?php esc_attr_e( 'Mobile menu', 'paijo' ); ?>">
-			<?php
-			if ( has_nav_menu( 'primary' ) ) {
-				wp_nav_menu(
-					array(
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_class'     => 'grid gap-3 text-base font-bold',
-						'fallback_cb'    => false,
-					)
-				);
-			} else {
-				paijo_category_menu_fallback( 'grid gap-3 text-base font-bold' );
-			}
-			?>
+		<nav id="paijo-mobile-nav" class="hidden border border-t-0 border-white/10 py-6 px-6 bg-black/85 backdrop-blur-md text-white shadow-lg rounded-b-lg" data-paijo-mobile-nav aria-label="<?php esc_attr_e( 'Mobile menu', 'paijo' ); ?>">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-4xl mx-auto py-4">
+				<!-- Column 1: Kategori Utama -->
+				<div>
+					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-neutral-400 mb-5 pb-2 border-b border-white/10 flex items-center gap-2">
+						<span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
+						<?php esc_html_e( 'Kategori Utama', 'paijo' ); ?>
+					</h3>
+					<ul class="space-y-3">
+						<?php
+						$post_categories = get_categories( array( 'hide_empty' => false ) );
+						foreach ( $post_categories as $cat ) {
+							if ( 'uncategorized' === $cat->slug ) {
+								continue;
+							}
+							?>
+							<li>
+								<a href="<?php echo esc_url( get_category_link( $cat->term_id ) ); ?>" class="group flex items-center justify-between text-sm font-bold py-1 transition-all duration-200 hover:translate-x-1.5 w-full">
+									<span><?php echo esc_html( $cat->name ); ?></span>
+									<svg class="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 text-[#f1818f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+									</svg>
+								</a>
+							</li>
+							<?php
+						}
+						?>
+					</ul>
+				</div>
+
+				<!-- Column 2: Konten Khusus -->
+				<div>
+					<h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#f1818f] mb-5 pb-2 border-b border-white/10 flex items-center gap-2">
+						<span class="w-1.5 h-1.5 rounded-full bg-[#f1818f]"></span>
+						<?php esc_html_e( 'Konten Khusus', 'paijo' ); ?>
+					</h3>
+					<ul class="space-y-3">
+						<?php
+						$cpt_categories = get_terms( array( 'taxonomy' => 'paijo_content_category', 'hide_empty' => false ) );
+						if ( ! is_wp_error( $cpt_categories ) && ! empty( $cpt_categories ) ) {
+							foreach ( $cpt_categories as $term ) {
+								?>
+								<li>
+									<a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="group flex items-center justify-between text-sm font-bold py-1 transition-all duration-200 hover:translate-x-1.5 w-full">
+										<span><?php echo esc_html( $term->name ); ?></span>
+										<svg class="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 text-[#f1818f]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+											<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+										</svg>
+									</a>
+								</li>
+								<?php
+							}
+						}
+						?>
+					</ul>
+				</div>
+			</div>
 		</nav>
 	</div>
 </header>

@@ -1,0 +1,15 @@
+{
+  "name": "paijo-theme",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Classic WordPress news portal theme by JerukElektrik.",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/theme.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/theme.css --watch",
+    "lint:php": "find . -name '*.php' -not -path './node_modules/*' -print0 | xargs -0 -n1 /Applications/Local.app/Contents/Resources/extraResources/lightning-services/php-8.2.29+0/bin/darwin-arm64/bin/php -l"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

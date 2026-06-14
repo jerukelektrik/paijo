@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --paijo-ink: #111111;
+  --paijo-paper: #f7f5f0;
+  --paijo-muted: #74706a;
+  --paijo-line: #ded8cd;
+  --paijo-card: #ffffff;
+}
+
+html.dark {
+  --paijo-ink: #f3f4f6;
+  --paijo-paper: #121212;
+  --paijo-muted: #9ca3af;
+  --paijo-line: #2d2d2d;
+  --paijo-card: #1c1c1e;
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Libre Bodoni", "Playfair Display", Georgia, serif;
+  --color-paijo-ink: var(--paijo-ink);
+  --color-paijo-paper: var(--paijo-paper);
+  --color-paijo-muted: var(--paijo-muted);
+  --color-paijo-line: var(--paijo-line);
+  --color-paijo-accent: #f1818f;
+  --color-paijo-card: var(--paijo-card);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paijo-paper font-sans text-paijo-ink antialiased;
+  }
+
+  a {
+    @apply transition-colors;
+  }
+
+  img {
+    @apply max-w-full;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-4 outline-paijo-accent;
+  }
+}
+
+@layer components {
+  .paijo-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .paijo-section {
+    @apply py-10 sm:py-14 lg:py-16;
+  }
+
+  .paijo-eyebrow {
+    @apply text-xs font-black uppercase tracking-[0.18em] text-paijo-accent;
+  }
+
+  .paijo-card {
+    @apply overflow-hidden border border-paijo-line bg-paijo-card shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md;
+  }
+
+  .paijo-button {
+    @apply inline-flex items-center justify-center rounded-full bg-paijo-ink px-5 py-2.5 text-sm font-extrabold text-white hover:bg-paijo-accent;
+  }
+
+  .paijo-grid-archive {
+    @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .paijo-prose {
+    @apply mx-auto max-w-3xl text-lg leading-8 text-paijo-ink;
+  }
+
+  .paijo-prose p {
+    font-family: "PT Serif", Georgia, serif;
+    font-size: 20px;
+    color: #0d0d0d;
+    margin: 0px 2px 20px;
+    line-height: 1.8;
+  }
+
+  html.dark .paijo-prose p {
+    color: var(--paijo-ink);
+  }
+
+  .paijo-prose ul,
+  .paijo-prose ol,
+  .paijo-prose blockquote {
+    @apply mb-6;
+  }
+
+  .paijo-prose h2 {
+    @apply mb-4 mt-10 text-3xl font-black leading-tight text-paijo-ink;
+  }
+
+  .paijo-prose h3 {
+    @apply mb-3 mt-8 text-2xl font-extrabold leading-tight text-paijo-ink;
+  }
+
+  /* Automatic white logo inversion when overlaying the dark slider */
+  header.bg-transparent img.custom-logo:not(.custom-logo-dark) {
+    filter: brightness(0) invert(1);
+    transition: filter 0.3s ease;
+  }
+
+  /* Toggle default theme logo states (Dark vs White PNG) */
+  header.bg-transparent img.custom-logo-dark {
+    display: none;
+  }
+  header.bg-transparent img.custom-logo-white {
+    display: block;
+  }
+  header:not(.bg-transparent) img.custom-logo-dark {
+    display: block;
+  }
+  header:not(.bg-transparent) img.custom-logo-white {
+    display: none;
+  }
+}
+
+/* Custom override for 2px blur */
+.blur-md {
+  filter: blur(2px);
+}
+.backdrop-blur-md {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Force header links to be white by default, and accent on hover */
+header nav a {
+  color: #ffffff !important;
+}
+header nav a:hover {
+  color: #f1818f !important;
+}
+
+/* Show fullcolor logo on hover */
+header:hover img.custom-logo-dark {
+  display: block !important;
+}
+header:hover img.custom-logo-white {
+  display: none !important;
+}
+
+/* Custom hover state for "Baca Artikel" button */
+.paijo-button:hover {
+  background-color: #f1818f !important;
+  color: #ffffff !important;
+}
+
+/* Custom hover state for search icon and hamburger menu */
+[data-paijo-header-btn]:hover {
+  border-color: #f1818f !important;
+  color: #f1818f !important;
+  background-color: rgba(241, 129, 143, 0.1) !important;
+}
+
+/* Custom hover state for slider navigation controls */
+[data-paijo-slider-prev]:hover,
+[data-paijo-slider-next]:hover {
+  background-color: #f1818f !important;
+  border-color: #f1818f !important;
+}
+
+/* Custom styling for Category Capsule inside single post and hovers */
+.paijo-category-capsule {
+  background-color: #f1818f !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+}
+.paijo-category-capsule:hover {
+  background-color: #ffffff !important;
+  color: #f1818f !important;
+  box-shadow: 0 0 0 1px #f1818f inset;
+}
+
+/* Custom styling for Tag links at the footer of single post */
+footer.border-t a {
+  background-color: #f1818f !important;
+  color: #ffffff !important;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+footer.border-t a:hover {
+  background-color: #ffffff !important;
+  color: #f1818f !important;
+  box-shadow: 0 0 0 1px #f1818f inset;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Customize watercolor background in dark mode to glow pink */
+html.dark .watercolor-bg-layer {
+  filter: invert(1) hue-rotate(155deg) brightness(1.2) saturate(1.8);
+}
+

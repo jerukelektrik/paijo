@@ -1,7 +1,7 @@
 <?php
 /**
  * Custom taxonomy archive template for paijo_content_category.
- * Kumparan style: Constrained Hero Header + Centered list with sorting controls precisely above the list.
+ * Kumparan style: Constrained Square Hero Header + Centered list with sorting controls precisely above the list.
  *
  * @package Paijo
  */
@@ -77,14 +77,14 @@ $term_query = new WP_Query( $args );
 			<?php while ( $term_query->have_posts() ) : $term_query->the_post(); $post_count++; ?>
 				
 				<?php if ( 1 === $paged && 1 === $post_count ) : ?>
-					<!-- 1. Constrained Hero Header (First Post, Page 1 Only - Aligned to max-w-3xl) -->
+					<!-- 1. Constrained Hero Header (First Post, Page 1 Only - aspect-square 1:1) -->
 					<?php 
 					$hero_thumb = paijo_get_thumbnail_url( get_the_ID(), 'paijo-hero' ); 
 					$author_name = get_the_author();
 					$reading_time = paijo_get_reading_time();
 					$excerpt = paijo_get_card_excerpt( get_the_ID(), 28 );
 					?>
-					<div class="relative w-full aspect-[16/10] bg-paijo-ink rounded-3xl overflow-hidden mb-10 group shadow-lg transition-all duration-300">
+					<div class="relative w-full aspect-square bg-paijo-ink rounded-3xl overflow-hidden mb-10 group shadow-lg transition-all duration-300">
 						<!-- Background Image -->
 						<?php if ( $hero_thumb ) : ?>
 							<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" src="<?php echo esc_url( $hero_thumb ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">

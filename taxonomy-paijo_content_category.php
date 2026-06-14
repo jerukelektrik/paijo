@@ -1,7 +1,7 @@
 <?php
 /**
  * Custom taxonomy archive template for paijo_content_category.
- * Kumparan style: Constrained Hero Header for first post + Centered list for subsequent posts.
+ * Kumparan style: Constrained Hero Header + Centered list with sorting controls precisely above the list.
  *
  * @package Paijo
  */
@@ -55,41 +55,15 @@ $term_query = new WP_Query( $args );
 			<span class="text-neutral-500"><?php echo esc_html( $current_term->name ); ?></span>
 		</nav>
 
-		<!-- Header Section with Sort Icons -->
-		<div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8 border-b border-neutral-100 dark:border-neutral-800/60 pb-8">
-			<div class="max-w-3xl">
-				<span class="inline-block bg-[#f1818f] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] mb-3">
-					<?php esc_html_e( 'Kategori Konten', 'paijo' ); ?>
-				</span>
-				<h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-extrabold text-paijo-ink leading-tight mb-3"><?php echo esc_html( $current_term->name ); ?></h1>
-				<?php if ( ! empty( $current_term->description ) ) : ?>
-					<div class="text-paijo-muted text-sm sm:text-base leading-relaxed"><?php echo esc_html( $current_term->description ); ?></div>
-				<?php endif; ?>
-			</div>
-
-			<!-- Sort Icons Selector -->
-			<div class="flex items-center gap-2 self-start sm:self-auto shrink-0">
-				<!-- Sort by Terbaru (Newest) -->
-				<a href="<?php echo esc_url( add_query_arg( 'orderby', 'date', get_term_link( $term_id, 'paijo_content_category' ) ) ); ?>" 
-				   class="flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 <?php echo 'date' === $orderby ? 'bg-[#f1818f] text-white shadow-sm border border-transparent' : 'bg-[#F8F9FA] dark:bg-neutral-900 text-black dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white border border-transparent'; ?>" 
-				   title="Terbaru">
-					<!-- Clock Icon -->
-					<svg class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="12" cy="12" r="10"></circle>
-						<polyline points="12 6 12 12 16 14"></polyline>
-					</svg>
-				</a>
-
-				<!-- Sort by Terpopuler (Most Popular) -->
-				<a href="<?php echo esc_url( add_query_arg( 'orderby', 'popular', get_term_link( $term_id, 'paijo_content_category' ) ) ); ?>" 
-				   class="flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 <?php echo 'popular' === $orderby ? 'bg-[#f1818f] text-white shadow-sm border border-transparent' : 'bg-[#F8F9FA] dark:bg-neutral-900 text-black dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white border border-transparent'; ?>" 
-				   title="Terpopuler">
-					<!-- Flame Icon -->
-					<svg class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
-					</svg>
-				</a>
-			</div>
+		<!-- Header Section (Without Sort Icons) -->
+		<div class="max-w-3xl mb-8 border-b border-neutral-100 dark:border-neutral-800/60 pb-8">
+			<span class="inline-block bg-[#f1818f] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] mb-3">
+				<?php esc_html_e( 'Kategori Konten', 'paijo' ); ?>
+			</span>
+			<h1 class="text-3xl sm:text-4xl lg:text-5xl font-sans font-extrabold text-paijo-ink leading-tight mb-3"><?php echo esc_html( $current_term->name ); ?></h1>
+			<?php if ( ! empty( $current_term->description ) ) : ?>
+				<div class="text-paijo-muted text-sm sm:text-base leading-relaxed"><?php echo esc_html( $current_term->description ); ?></div>
+			<?php endif; ?>
 		</div>
 
 		<?php if ( $term_query->have_posts() ) : ?>
@@ -164,6 +138,39 @@ $term_query = new WP_Query( $args );
 					<?php
 					// Open the list wrapper if not already opened
 					if ( ! $has_list ) {
+						?>
+						<!-- List Header with Sort Controls -->
+						<div class="max-w-3xl mx-auto flex items-center justify-between mb-4 mt-8">
+							<h3 class="text-xs font-black uppercase tracking-wider text-paijo-ink">
+								<?php esc_html_e( 'Daftar Artikel', 'paijo' ); ?>
+							</h3>
+							
+							<!-- Sort Icons Selector -->
+							<div class="flex items-center gap-2">
+								<!-- Sort by Terbaru (Newest) -->
+								<a href="<?php echo esc_url( add_query_arg( 'orderby', 'date', get_term_link( $term_id, 'paijo_content_category' ) ) ); ?>" 
+								   class="flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200 <?php echo 'date' === $orderby ? 'bg-[#f1818f] text-white shadow-sm border border-transparent' : 'bg-white dark:bg-neutral-900 text-black dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white border border-neutral-200 dark:border-neutral-800'; ?>" 
+								   title="Terbaru">
+									<!-- Clock Icon -->
+									<svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<circle cx="12" cy="12" r="10"></circle>
+										<polyline points="12 6 12 12 16 14"></polyline>
+									</svg>
+								</a>
+
+								<!-- Sort by Terpopuler (Most Popular) -->
+								<a href="<?php echo esc_url( add_query_arg( 'orderby', 'popular', get_term_link( $term_id, 'paijo_content_category' ) ) ); ?>" 
+								   class="flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-200 <?php echo 'popular' === $orderby ? 'bg-[#f1818f] text-white shadow-sm border border-transparent' : 'bg-white dark:bg-neutral-900 text-black dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-black dark:hover:text-white border border-neutral-200 dark:border-neutral-800'; ?>" 
+								   title="Terpopuler">
+									<!-- Flame Icon -->
+									<svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
+									</svg>
+								</a>
+							</div>
+						</div>
+						<?php
+						
 						echo '<div class="max-w-3xl mx-auto bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800/80 rounded-2xl px-6 sm:px-8 shadow-[0_4px_20px_rgba(0,0,0,0.01)] transition-colors duration-300">';
 						echo '<div class="divide-y divide-neutral-100 dark:divide-neutral-800/60">';
 						$has_list = true;

@@ -70,8 +70,7 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 		<div>
 			<h4 class="text-white font-bold uppercase tracking-wider mb-3">ALAMAT</h4>
 			<p class="text-neutral-400 uppercase tracking-wider text-[11px] leading-relaxed mb-6">
-				Jalan Ruwet Setengah Mumet XXI, Sleman Yogyakarta<br>
-				Kodepos: 55627
+				Jalan Camar No.79, Sidoarum, Kecamatan Godean, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55264
 			</p>
 			
 			<h4 class="text-white font-bold uppercase tracking-wider mb-3">SOCIAL</h4>

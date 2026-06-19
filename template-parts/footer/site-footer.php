@@ -55,14 +55,14 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 		<div class="md:col-span-2">
 			<h4 class="text-white font-bold uppercase tracking-wider mb-4">PANDANGAN JOGJA</h4>
 			<ul class="flex flex-wrap text-neutral-400 uppercase tracking-wider text-[11px] gap-y-2">
-				<li class="w-1/2 pr-2"><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
-				<li class="w-1/2"><a href="#" class="hover:text-white transition-colors">Iklan & Kerjasama</a></li>
-				<li class="w-1/2 pr-2"><a href="#" class="hover:text-white transition-colors">Kontak</a></li>
-				<li class="w-1/2"><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
-				<li class="w-1/2 pr-2"><a href="#" class="hover:text-white transition-colors">Redaksi</a></li>
-				<li class="w-1/2"><a href="#" class="hover:text-white transition-colors">Kebijakan Cookies</a></li>
-				<li class="w-1/2 pr-2"><a href="#" class="hover:text-white transition-colors">Pedoman Media Siber</a></li>
-				<li class="w-1/2"><a href="#" class="hover:text-white transition-colors">Peta Situs</a></li>
+				<li class="w-1/2 pr-2"><a href="/tentang-kami" class="hover:text-white transition-colors">Tentang Kami</a></li>
+				<li class="w-1/2"><a href="/iklan-kerjasama" class="hover:text-white transition-colors">Iklan & Kerjasama</a></li>
+				<li class="w-1/2 pr-2"><a href="/kontak" class="hover:text-white transition-colors">Kontak</a></li>
+				<li class="w-1/2"><a href="/kebijakan-privasi" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+				<li class="w-1/2 pr-2"><a href="/redaksi" class="hover:text-white transition-colors">Redaksi</a></li>
+				<li class="w-1/2"><a href="/kebijakan-cookies" class="hover:text-white transition-colors">Kebijakan Cookies</a></li>
+				<li class="w-1/2 pr-2"><a href="/pedoman-media-siber" class="hover:text-white transition-colors">Pedoman Media Siber</a></li>
+				<li class="w-1/2"><a href="/peta-situs" class="hover:text-white transition-colors">Peta Situs</a></li>
 			</ul>
 		</div>
 

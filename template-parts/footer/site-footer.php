@@ -76,33 +76,25 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 			
 			<h4 class="text-paijo-ink font-bold uppercase tracking-wider mb-3">SOCIAL</h4>
 			<div class="flex items-center gap-4 text-paijo-muted">
-				<?php $fb_url = get_theme_mod( 'paijo_social_facebook' ); if ( $fb_url ) : ?>
 				<!-- FB -->
-				<a href="<?php echo esc_url( $fb_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.facebook.com/pandanganjogjacom" class="hover:text-paijo-accent transition-colors" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
 					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
 				</a>
-				<?php endif; ?>
 				
-				<?php $tw_url = get_theme_mod( 'paijo_social_twitter' ); if ( $tw_url ) : ?>
 				<!-- X (Twitter) -->
-				<a href="<?php echo esc_url( $tw_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="X" target="_blank" rel="noopener noreferrer">
+				<a href="https://x.com/pandangan_jogja" class="hover:text-paijo-accent transition-colors" aria-label="X" target="_blank" rel="noopener noreferrer">
 					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L5.769 21.75H2.462l7.732-8.835L1.766 2.25h6.837l4.867 6.52 5.774-6.52zM16.5 20.25h1.833L7.997 3.75H6.074l10.426 16.5z"/></svg>
 				</a>
-				<?php endif; ?>
 				
-				<?php $ig_url = get_theme_mod( 'paijo_social_instagram' ); if ( $ig_url ) : ?>
 				<!-- Instagram -->
-				<a href="<?php echo esc_url( $ig_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.instagram.com/pandanganjogja" class="hover:text-paijo-accent transition-colors" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
 					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
 				</a>
-				<?php endif; ?>
 				
-				<?php $tt_url = get_theme_mod( 'paijo_social_tiktok' ); if ( $tt_url ) : ?>
 				<!-- TikTok -->
-				<a href="<?php echo esc_url( $tt_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.tiktok.com/@pandanganjogja" class="hover:text-paijo-accent transition-colors" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
 					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.29 0 .57.04.84.13V9.5a6.27 6.27 0 00-3.15-.3A6.34 6.34 0 002 15.56a6.34 6.34 0 0010.14 5.06 6.27 6.27 0 002.31-4.95V8.56A8.34 8.34 0 0019.59 11V7.58c-.85 0-1.67-.32-2.31-.89z"/></svg>
 				</a>
-				<?php endif; ?>
 			</div>
 		</div>
 	</div>

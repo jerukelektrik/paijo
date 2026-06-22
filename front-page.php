@@ -25,6 +25,8 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 						<?php if ( $thumbnail ) : ?>
 							<img class="absolute inset-0 h-full w-full object-cover" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
 							<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/20"></div>
+							<!-- Fade overlay at the bottom to blend with grid section -->
+							<div class="absolute inset-x-0 bottom-0 h-1/4 pointer-events-none z-10" style="background: linear-gradient(to bottom, transparent, var(--color-paijo-paper));"></div>
 						<?php else : ?>
 							<div class="absolute inset-0 bg-paijo-ink"></div>
 						<?php endif; ?>
@@ -91,14 +93,17 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 	$featured_content_categories = paijo_get_featured_content_category_terms();
 	if ( ! empty( $featured_content_categories ) ) :
 	?>
-		<section class="relative paijo-section bg-[#1b1b1b] text-white border-b border-neutral-800 bg-cover bg-center bg-no-repeat" style="background-image: url('<?php echo esc_url( PAIJO_URI . '/assets/images/watercolor.png?ver=' . paijo_asset_version( 'assets/images/watercolor.png' ) ); ?>');">
+		<section class="paijo-section border-b border-paijo-line bg-paijo-paper relative overflow-hidden">
 			<!-- Dark Overlay for subtle background shadow effect -->
-			<div class="absolute inset-0 bg-black/85 z-0 pointer-events-none"></div>
+			<div class="absolute right-0 bottom-0 w-[500px] h-[210px] sm:w-[650px] sm:h-[270px] lg:w-[800px] lg:h-[333px] bg-contain bg-right-bottom bg-no-repeat z-0 pointer-events-none watercolor-bg-layer" style="background-image: url('<?php echo esc_url( PAIJO_URI . '/assets/images/watercolor.png?ver=' . paijo_asset_version( 'assets/images/watercolor.png' ) ); ?>');"></div>
+			<div class="paijo-container relative z-10">
+			<div class="relative inset-0 bg-black/85 z-0 pointer-events-none"></div>
 			
 			<div class="paijo-container text-center relative z-10">
 				<h2 class="text-3xl sm:text-5xl font-sans font-black tracking-tight mb-3"><?php esc_html_e( 'Baca Artikel Khas', 'paijo' ); ?></h2>
 				<p class="text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto mb-12"><?php esc_html_e( 'Beragam cerita, menggerakkan ekosistem', 'paijo' ); ?></p>
 				
+				<!-- Category Entry Points (Baca Artikel Khas) -->
 				<div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8">
 					<?php
 					foreach ( $featured_content_categories as $category ) :
@@ -109,7 +114,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 						}
 						$category_label = 'kultur-by-pandangan-jogja' === $category->slug ? __( 'Kultur', 'paijo' ) : $category->name;
 						?>
-						<a class="group relative block aspect-[3/4] overflow-hidden bg-neutral-900 border border-white/10" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
+						<a class="group relative block aspect-[3/4] overflow-hidden bg-neutral-900" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
 							<span class="sr-only"><?php echo esc_html( $category_label ); ?></span>
 							
 							<!-- Category Image -->
@@ -222,7 +227,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			$insight_term_link    = get_category_link( $insight_term );
 			?>
 			<section class="border-b border-paijo-line bg-paijo-card">
-				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden">
 					
 					<!-- Column 1: Category Gateway Card -->
 					<a class="group relative bg-[#050b14] text-white aspect-square w-full overflow-hidden flex flex-col justify-between p-6 sm:p-8" href="<?php echo esc_url( $insight_term_link ); ?>">
@@ -310,7 +315,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			$tinggal_term_link    = get_term_link( $tinggal_term );
 			?>
 			<section class="border-b border-paijo-line bg-paijo-card">
-				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden">
 					
 					<!-- Column 1: Category Gateway Card -->
 					<a class="group relative bg-[#050b14] text-white aspect-square w-full overflow-hidden flex flex-col justify-between p-6 sm:p-8" href="<?php echo esc_url( $tinggal_term_link ); ?>">
@@ -440,7 +445,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 						?>
 
 						<!-- Last Card: Watch More Recommendation -->
-						<div class="snap-start flex flex-col bg-white dark:bg-neutral-900 border border-paijo-line rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
+						<div class="snap-start flex flex-col bg-white dark:bg-neutral-900 rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
 							<!-- CTA Container -->
 							<a href="<?php echo esc_url( $toko_bercerita_url ); ?>" class="group relative w-full h-[400px] bg-gradient-to-br from-[#050b14] to-[#121b2d] flex flex-col justify-between p-6 overflow-hidden">
 								<!-- Background Pattern Circle -->

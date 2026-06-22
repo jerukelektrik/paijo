@@ -22,18 +22,24 @@ $btn_class = $is_home
 			<div class="flex items-center gap-2.5 w-1/3 z-10">
 				<!-- Column 1: Hamburger Menu -->
 				<button class="<?php echo esc_attr( $btn_class ); ?>" type="button" data-paijo-header-btn data-paijo-nav-toggle aria-controls="paijo-mobile-nav" aria-expanded="false" aria-label="<?php esc_attr_e( 'Menu', 'paijo' ); ?>">
-					<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<line x1="4" y1="12" x2="20" y2="12"></line>
-						<line x1="4" y1="6" x2="20" y2="6"></line>
-						<line x1="4" y1="18" x2="20" y2="18"></line>
-					</svg>
+					<span class="paijo-hamburger" aria-hidden="true">
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-top"></span>
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-middle"></span>
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-bottom"></span>
+					</span>
 				</button>
 				<!-- Column 2: Search Icon -->
 				<button class="<?php echo esc_attr( $btn_class ); ?>" type="button" data-paijo-header-btn data-paijo-search-toggle aria-controls="paijo-search-panel" aria-expanded="false" aria-label="<?php esc_attr_e( 'Search', 'paijo' ); ?>">
-					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="11" cy="11" r="8"></circle>
-						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-					</svg>
+					<span class="paijo-search-icon" aria-hidden="true">
+						<svg class="paijo-search-icon-default h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="11" cy="11" r="8"></circle>
+							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+						</svg>
+						<svg class="paijo-search-icon-close h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+						</svg>
+					</span>
 				</button>
 			</div>
 

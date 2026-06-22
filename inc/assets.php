@@ -25,6 +25,13 @@ function paijo_enqueue_assets(): void {
 		paijo_asset_version( 'assets/css/theme.css' )
 	);
 
+	wp_enqueue_style(
+		'paijo-hamburger',
+		PAIJO_URI . '/assets/css/hamburger.css',
+		array( 'paijo-theme' ),
+		paijo_asset_version( 'assets/css/hamburger.css' )
+	);
+
 	wp_enqueue_script(
 		'paijo-navigation',
 		PAIJO_URI . '/assets/js/navigation.js',

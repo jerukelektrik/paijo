@@ -47,7 +47,7 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 					endforeach;
 				else :
 					?>
-					<li><a href="#" class="hover:text-paijo-accent transition-colors">No categories</a></li>
+					<li><a href="#">No categories</a></li>
 				<?php endif; ?>
 			</ul>
 		</div>
@@ -56,14 +56,14 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 		<div class="md:col-span-2">
 			<h4 class="text-paijo-ink font-bold uppercase tracking-wider mb-4">PANDANGAN JOGJA</h4>
 			<ul class="flex flex-wrap text-paijo-muted uppercase tracking-wider text-[11px] gap-y-2">
-				<li class="w-1/2 pr-2"><a href="/tentang-kami" class="hover:text-paijo-accent transition-colors">Tentang Kami</a></li>
-				<li class="w-1/2"><a href="/iklan-kerjasama" class="hover:text-paijo-accent transition-colors">Iklan & Kerjasama</a></li>
-				<li class="w-1/2 pr-2"><a href="/kontak" class="hover:text-paijo-accent transition-colors">Kontak</a></li>
-				<li class="w-1/2"><a href="/kebijakan-privasi" class="hover:text-paijo-accent transition-colors">Kebijakan Privasi</a></li>
-				<li class="w-1/2 pr-2"><a href="/redaksi" class="hover:text-paijo-accent transition-colors">Redaksi</a></li>
-				<li class="w-1/2"><a href="/kebijakan-cookies" class="hover:text-paijo-accent transition-colors">Kebijakan Cookies</a></li>
-				<li class="w-1/2 pr-2"><a href="/pedoman-media-siber" class="hover:text-paijo-accent transition-colors">Pedoman Media Siber</a></li>
-				<li class="w-1/2"><a href="/peta-situs" class="hover:text-paijo-accent transition-colors">Peta Situs</a></li>
+				<li class="w-1/2 pr-2"><a href="/tentang-kami">Tentang Kami</a></li>
+				<li class="w-1/2"><a href="/iklan-kerjasama">Iklan & Kerjasama</a></li>
+				<li class="w-1/2 pr-2"><a href="/kontak">Kontak</a></li>
+				<li class="w-1/2"><a href="/kebijakan-privasi">Kebijakan Privasi</a></li>
+				<li class="w-1/2 pr-2"><a href="/redaksi">Redaksi</a></li>
+				<li class="w-1/2"><a href="/kebijakan-cookies">Kebijakan Cookies</a></li>
+				<li class="w-1/2 pr-2"><a href="/pedoman-media-siber">Pedoman Media Siber</a></li>
+				<li class="w-1/2"><a href="/peta-situs">Peta Situs</a></li>
 			</ul>
 		</div>
 
@@ -84,9 +84,9 @@ $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' 
 				<?php endif; ?>
 				
 				<?php $tw_url = get_theme_mod( 'paijo_social_twitter' ); if ( $tw_url ) : ?>
-				<!-- Twitter -->
-				<a href="<?php echo esc_url( $tw_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M23.95 4.57a10 10 0 01-2.82.77 4.96 4.96 0 002.16-2.72c-.95.57-2 .98-3.13 1.2a4.93 4.93 0 00-8.39 4.49 14 14 0 01-10.16-5.15 4.91 4.91 0 001.52 6.57 4.9 4.9 0 01-2.23-.61v.06a4.92 4.92 0 003.95 4.83 4.9 4.9 0 01-2.22.08 4.92 4.92 0 004.6 3.42A9.9 9.9 0 010 19.54a13.94 13.94 0 007.55 2.21c9.06 0 14-7.5 14-14 0-.21 0-.42-.01-.63A9.98 9.98 0 0024 4.59z"/></svg>
+				<!-- X (Twitter) -->
+				<a href="<?php echo esc_url( $tw_url ); ?>" class="hover:text-paijo-accent transition-colors" aria-label="X" target="_blank" rel="noopener noreferrer">
+					<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L5.769 21.75H2.462l7.732-8.835L1.766 2.25h6.837l4.867 6.52 5.774-6.52zM16.5 20.25h1.833L7.997 3.75H6.074l10.426 16.5z"/></svg>
 				</a>
 				<?php endif; ?>
 				

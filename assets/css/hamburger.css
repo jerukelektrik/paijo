@@ -1,0 +1,81 @@
+.paijo-hamburger {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.paijo-hamburger-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease, bottom 0.3s ease;
+}
+
+.paijo-hamburger-bar-top {
+  top: 4px;
+}
+
+.paijo-hamburger-bar-middle {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.paijo-hamburger-bar-bottom {
+  bottom: 4px;
+}
+
+.is-open .paijo-hamburger-bar-top {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.is-open .paijo-hamburger-bar-middle {
+  opacity: 0;
+}
+
+.is-open .paijo-hamburger-bar-bottom {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+.paijo-search-icon {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.paijo-search-icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+.paijo-search-icon-default {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.paijo-search-icon-close {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.is-open .paijo-search-icon-default {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.is-open .paijo-search-icon-close {
+  opacity: 1;
+  transform: scale(1);
+}

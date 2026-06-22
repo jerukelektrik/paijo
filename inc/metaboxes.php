@@ -30,7 +30,7 @@ function paijo_register_hero_post_meta(): void {
 	);
 }
 
-function paijo_sanitize_hero_post_meta( mixed $value ): string {
+function paijo_sanitize_hero_post_meta( $value ): string {
 	return '1' === (string) $value ? '1' : '';
 }
 

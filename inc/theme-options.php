@@ -124,7 +124,7 @@ function paijo_customize_register( WP_Customize_Manager $wp_customize ): void {
 	}
 }
 
-function paijo_sanitize_checkbox( mixed $checked ): bool {
+function paijo_sanitize_checkbox( $checked ): bool {
 	return (bool) $checked;
 }
 

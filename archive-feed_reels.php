@@ -15,6 +15,9 @@ $args = array(
 	'paged'               => $paged,
 	'posts_per_page'      => 9,
 	'ignore_sticky_posts' => true,
+	'meta_key'            => '_paijo_feed_reels_timestamp',
+	'orderby'             => 'meta_value_num',
+	'order'               => 'DESC',
 );
 
 $feed_reels_query = new WP_Query( $args );

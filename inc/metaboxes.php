@@ -147,12 +147,51 @@ function paijo_save_feed_reels_metabox_data( int $post_id ): void {
 		$old_url   = get_post_meta( $post_id, '_paijo_feed_reels_embed_url', true );
 		update_post_meta( $post_id, '_paijo_feed_reels_embed_url', $embed_url );
 
+		$timestamp = paijo_extract_social_timestamp( $embed_url );
+		if ( $timestamp <= 0 ) {
+			$timestamp = get_post_time( 'U', true, $post_id );
+		}
+		update_post_meta( $post_id, '_paijo_feed_reels_timestamp', $timestamp );
+
 		if ( $embed_url !== $old_url || ! has_post_thumbnail( $post_id ) ) {
 			paijo_download_social_thumbnail_and_set( $post_id, $embed_url );
 		}
 	} else {
 		delete_post_meta( $post_id, '_paijo_feed_reels_embed_url' );
+		delete_post_meta( $post_id, '_paijo_feed_reels_timestamp' );
 	}
+}
+
+function paijo_extract_social_timestamp( string $url ): int {
+	$url = trim( $url );
+	
+	if ( PHP_INT_SIZE < 8 ) {
+		return 0; // Requires 64-bit PHP for large integer bitwise operations
+	}
+
+	// 1. Instagram Shortcode
+	if ( preg_match( '~instagram\.com/(?:p|reel|reels)/([^/?#]+)~i', $url, $matches ) ) {
+		$shortcode = $matches[1];
+		$alphabet  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+		$id_int    = 0;
+		foreach ( str_split( $shortcode ) as $char ) {
+			$pos = strpos( $alphabet, $char );
+			if ( $pos === false ) continue;
+			$id_int = ( $id_int * 64 ) + $pos;
+		}
+		$timestamp_ms = ( $id_int >> 23 ) + 1314220021245;
+		return (int) ( $timestamp_ms / 1000 );
+	}
+
+	// 2. TikTok ID
+	if ( preg_match( '~tiktok\.com/@([^/]+)/video/(\d+)~i', $url, $matches ) ) {
+		$video_id     = $matches[2];
+		$video_id_int = (int) $video_id;
+		$timestamp    = $video_id_int >> 32;
+		return $timestamp;
+	}
+
+	return 0;
 }
 
 function paijo_download_social_thumbnail_and_set( int $post_id, string $url ): void {
@@ -215,4 +254,35 @@ function paijo_download_social_thumbnail_and_set( int $post_id, string $url ): v
 	}
 
 	add_action( 'save_post', 'paijo_save_feed_reels_metabox_data' );
+}
+
+/**
+ * Backfill timestamps for existing feed reels.
+ * Runs once and sets an option to prevent re-running.
+ */
+add_action( 'init', 'paijo_backfill_feed_reels_timestamps' );
+function paijo_backfill_feed_reels_timestamps(): void {
+	if ( get_option( 'paijo_feed_reels_timestamp_backfilled' ) ) {
+		return;
+	}
+
+	$feed_reels = get_posts( array(
+		'post_type'      => 'feed_reels',
+		'posts_per_page' => -1,
+		'post_status'    => 'any',
+	) );
+
+	foreach ( $feed_reels as $reel ) {
+		$embed_url = get_post_meta( $reel->ID, '_paijo_feed_reels_embed_url', true );
+		$timestamp = 0;
+		if ( $embed_url ) {
+			$timestamp = paijo_extract_social_timestamp( $embed_url );
+		}
+		if ( $timestamp <= 0 ) {
+			$timestamp = get_post_time( 'U', true, $reel->ID );
+		}
+		update_post_meta( $reel->ID, '_paijo_feed_reels_timestamp', $timestamp );
+	}
+
+	update_option( 'paijo_feed_reels_timestamp_backfilled', true );
 }

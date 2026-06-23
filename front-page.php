@@ -383,6 +383,9 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			'post_status'         => 'publish',
 			'posts_per_page'      => 9, // Query up to 9 posts to make a total of 10 slides including the CTA card
 			'ignore_sticky_posts' => true,
+			'meta_key'            => '_paijo_feed_reels_timestamp',
+			'orderby'             => 'meta_value_num',
+			'order'               => 'DESC',
 		)
 	);
 

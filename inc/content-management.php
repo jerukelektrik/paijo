@@ -187,6 +187,8 @@ function paijo_ensure_content_category_terms(): void {
 		'skena-jogsel'              => __( 'Skena Jogsel', 'paijo' ),
 		'derby-istimewa'            => __( 'Derby Istimewa', 'paijo' ),
 		'kuliner-berbintang'        => __( 'Kuliner Berbintang', 'paijo' ),
+		'kategori-tambahan-1'       => __( 'Kategori Tambahan 1', 'paijo' ),
+		'kategori-tambahan-2'       => __( 'Kategori Tambahan 2', 'paijo' ),
 	);
 
 	foreach ( $terms as $slug => $name ) {
@@ -205,20 +207,13 @@ function paijo_ensure_content_category_terms(): void {
 }
 
 function paijo_get_featured_content_category_terms(): array {
-	$term_slugs = array(
-		'skena-jogsel',
-		'kultur-by-pandangan-jogja',
-		'derby-istimewa',
-		'kuliner-berbintang',
-	);
-	$terms      = array();
+	$terms = get_terms( array(
+		'taxonomy'   => 'paijo_content_category',
+		'hide_empty' => false,
+	) );
 
-	foreach ( $term_slugs as $slug ) {
-		$term = get_term_by( 'slug', $slug, 'paijo_content_category' );
-
-		if ( $term && ! is_wp_error( $term ) ) {
-			$terms[] = $term;
-		}
+	if ( is_wp_error( $terms ) ) {
+		return array();
 	}
 
 	return $terms;

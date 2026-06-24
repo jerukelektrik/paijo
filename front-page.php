@@ -104,7 +104,20 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 				<p class="text-sm sm:text-base text-neutral-400 max-w-2xl mx-auto mb-12"><?php esc_html_e( 'Beragam cerita, menggerakkan ekosistem', 'paijo' ); ?></p>
 				
 				<!-- Category Entry Points (Baca Artikel Khas) -->
+				<?php $is_slider = count( $featured_content_categories ) > 4; ?>
+				
+				<?php if ( $is_slider ) : ?>
+				<style>
+				.khas-slider-grid { grid-auto-columns: calc(50% - 8px); }
+				@media (min-width: 640px) { .khas-slider-grid { grid-auto-columns: calc(33.333% - 21.33px); } }
+				@media (min-width: 1024px) { .khas-slider-grid { grid-auto-columns: calc(25% - 24px); } }
+				</style>
+				<div class="relative group">
+					<div id="khas-slider" class="grid grid-flow-col overflow-x-auto snap-x snap-mandatory gap-4 sm:gap-8 pb-5 scrollbar-none khas-slider-grid">
+				<?php else : ?>
 				<div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8">
+				<?php endif; ?>
+
 					<?php
 					foreach ( $featured_content_categories as $category ) :
 						$latest_post = paijo_get_latest_content_for_category( (int) $category->term_id );
@@ -113,31 +126,108 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 							$img_url = paijo_get_thumbnail_url( (int) $latest_post->ID, 'paijo-card' );
 						}
 						$category_label = 'kultur-by-pandangan-jogja' === $category->slug ? __( 'Kultur', 'paijo' ) : $category->name;
+						$slider_class = $is_slider ? 'snap-start ' : '';
 						?>
-						<a class="group relative block aspect-[3/4] overflow-hidden bg-neutral-900" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
-							<span class="sr-only"><?php echo esc_html( $category_label ); ?></span>
-							
-							<!-- Category Image -->
-							<span class="absolute inset-0 block">
-								<?php if ( $img_url ) : ?>
-									<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $category->name ); ?>">
-								<?php else : ?>
-									<span class="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-500 font-black text-4xl uppercase tracking-[0.2em]">
-										<?php echo esc_html( mb_substr( $category_label, 0, 1 ) ); ?>
-									</span>
-								<?php endif; ?>
-							</span>
-							<span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></span>
-							
-							<!-- Category Title -->
-							<span class="absolute inset-x-0 bottom-0 z-10 block p-3 sm:p-6 text-left">
-								<span class="block text-base sm:text-2xl font-sans font-black leading-tight tracking-tight text-white transition-colors group-hover:text-white/85">
-									<?php echo esc_html( $category_label ); ?>
+							<a class="<?php echo esc_attr( $slider_class ); ?>group relative block aspect-[3/4] overflow-hidden bg-neutral-900 w-full" href="<?php echo esc_url( get_term_link( $category ) ); ?>">
+								<span class="sr-only"><?php echo esc_html( $category_label ); ?></span>
+								
+								<!-- Category Image -->
+								<span class="absolute inset-0 block">
+									<?php if ( $img_url ) : ?>
+										<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $category->name ); ?>">
+									<?php else : ?>
+										<span class="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-500 font-black text-4xl uppercase tracking-[0.2em]">
+											<?php echo esc_html( mb_substr( $category_label, 0, 1 ) ); ?>
+										</span>
+									<?php endif; ?>
 								</span>
-							</span>
+								<span class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></span>
+								
+								<!-- Category Title -->
+								<span class="absolute inset-x-0 bottom-0 z-10 block p-3 sm:p-6 text-left">
+									<span class="block text-base sm:text-2xl font-sans font-black leading-tight tracking-tight text-white transition-colors group-hover:text-white/85">
+										<?php echo esc_html( $category_label ); ?>
+									</span>
+								</span>
 						</a>
 					<?php endforeach; ?>
 				</div>
+
+				<?php if ( $is_slider ) : ?>
+					<!-- Navigation Buttons -->
+					<button id="khas-prev-btn" class="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 bg-white text-black hover:bg-black hover:text-white hover:border-black shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer opacity-0 pointer-events-none" aria-label="Previous">
+						<svg class="w-5 h-5 stroke-current fill-none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+							<polyline points="15 18 9 12 15 6"></polyline>
+						</svg>
+					</button>
+
+					<button id="khas-next-btn" class="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-12 h-12 rounded-full border border-neutral-300 bg-white text-black hover:bg-black hover:text-white hover:border-black shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer" aria-label="Next">
+						<svg class="w-5 h-5 stroke-current fill-none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</button>
+				</div>
+				<script>
+				document.addEventListener('DOMContentLoaded', function() {
+					const container = document.getElementById('khas-slider');
+					const prevBtn = document.getElementById('khas-prev-btn');
+					const nextBtn = document.getElementById('khas-next-btn');
+					
+					if (container && nextBtn && prevBtn) {
+						const observerOptions = {
+							root: container,
+							threshold: 0.95
+						};
+
+						const observer = new IntersectionObserver((entries) => {
+							entries.forEach(entry => {
+								if (entry.target === container.firstElementChild) {
+									if (entry.isIntersecting) {
+										prevBtn.classList.add('opacity-0', 'pointer-events-none');
+									} else {
+										prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+									}
+								}
+								if (entry.target === container.lastElementChild) {
+									if (entry.isIntersecting) {
+										nextBtn.classList.add('opacity-0', 'pointer-events-none');
+									} else {
+										nextBtn.classList.remove('opacity-0', 'pointer-events-none');
+									}
+								}
+							});
+						}, observerOptions);
+
+						if (container.firstElementChild) {
+							observer.observe(container.firstElementChild);
+						}
+						if (container.lastElementChild) {
+							observer.observe(container.lastElementChild);
+						}
+
+						nextBtn.addEventListener('click', function() {
+							const firstCard = container.firstElementChild;
+							if (firstCard) {
+								const cardWidth = firstCard.clientWidth;
+								const gap = parseInt(window.getComputedStyle(container).gap) || 16;
+								const scrollAmount = cardWidth + gap;
+								container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+							}
+						});
+
+						prevBtn.addEventListener('click', function() {
+							const firstCard = container.firstElementChild;
+							if (firstCard) {
+								const cardWidth = firstCard.clientWidth;
+								const gap = parseInt(window.getComputedStyle(container).gap) || 16;
+								const scrollAmount = cardWidth + gap;
+								container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+							}
+						});
+					}
+				});
+				</script>
+				<?php endif; ?>
 			</div>
 		</section>
 	<?php endif; ?>

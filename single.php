@@ -175,8 +175,25 @@ get_header();
 					</div>
 
 					<!-- Tags -->
-					<footer class="mt-10 border-t border-paijo-line pt-6">
-						<?php the_tags( '<div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wider text-paijo-accent">', '', '</div>' ); ?>
+					<footer class="mt-10 mb-12 border-t border-paijo-line pt-6 pb-6">
+						<?php 
+						$tags = get_the_tags();
+						if ( $tags ) {
+							echo '<div class="flex flex-col sm:flex-row sm:items-center gap-4">';
+							echo '<span class="text-xs font-bold text-paijo-ink uppercase tracking-wider flex items-center gap-1.5 shrink-0">';
+							echo '<svg class="w-4 h-4 text-[#f1818f]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>';
+							echo 'Tags:</span>';
+							echo '<div class="flex flex-wrap gap-2.5">';
+							foreach ( $tags as $tag ) {
+								echo '<a href="' . esc_url( get_tag_link( $tag->term_id ) ) . '" class="relative group inline-block px-4 py-1.5 bg-[#f1818f] text-white text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.1em] rounded-full shadow-sm hover:shadow-md hover:bg-[#e06d7b] transition-all duration-300 hover:-translate-y-0.5 overflow-hidden">';
+								echo '<span class="relative z-10">' . esc_html( $tag->name ) . '</span>';
+								// Underline animation
+								echo '<span class="absolute bottom-[3px] left-4 right-4 h-[1.5px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>';
+								echo '</a>';
+							}
+							echo '</div></div>';
+						}
+						?>
 					</footer>
 				</article>
 

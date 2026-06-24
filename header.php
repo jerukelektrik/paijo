@@ -36,6 +36,36 @@
 			text-align: left !important;
 			display: block !important;
 		}
+
+		/* Typography for Article Content (Gutenberg Support) */
+		.paijo-prose p {
+			margin-bottom: 1.5em;
+		}
+		.paijo-prose h1, .paijo-prose h2, .paijo-prose h3, .paijo-prose h4, .paijo-prose h5, .paijo-prose h6 {
+			font-weight: 800; /* Extra bold */
+			color: var(--color-paijo-ink, #111111);
+			margin-top: 2em;
+			margin-bottom: 0.75em;
+			line-height: 1.3;
+		}
+		html.dark .paijo-prose h1, html.dark .paijo-prose h2, html.dark .paijo-prose h3, html.dark .paijo-prose h4, html.dark .paijo-prose h5, html.dark .paijo-prose h6 {
+			color: #f3f4f6;
+		}
+		.paijo-prose h1 { font-size: 2.25em; }
+		.paijo-prose h2 { font-size: 1.875em; }
+		.paijo-prose h3 { font-size: 1.5em; }
+		.paijo-prose h4 { font-size: 1.25em; }
+		
+		/* Lists and Blockquotes */
+		.paijo-prose ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.5em; }
+		.paijo-prose ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1.5em; }
+		.paijo-prose blockquote { border-left: 4px solid #f1818f; padding-left: 1em; font-style: italic; color: #6b7280; margin-bottom: 1.5em; }
+
+		/* Allow Gutenberg font size utility classes to work */
+		.paijo-prose .has-small-font-size { font-size: var(--wp--preset--font-size--small, 13px) !important; }
+		.paijo-prose .has-medium-font-size { font-size: var(--wp--preset--font-size--medium, 20px) !important; }
+		.paijo-prose .has-large-font-size { font-size: var(--wp--preset--font-size--large, 36px) !important; }
+		.paijo-prose .has-x-large-font-size { font-size: var(--wp--preset--font-size--x-large, 42px) !important; }
 	</style>
 </head>
 <body <?php body_class( 'min-h-screen' ); ?>>

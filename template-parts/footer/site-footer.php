@@ -8,7 +8,11 @@
 $footer_text = get_theme_mod( 'paijo_footer_text', 'Como 1907 Official Website' );
 ?>
 
-<footer class="bg-paijo-card text-paijo-ink pt-16 pb-8 text-xs font-sans tracking-wide transition-colors duration-300 border-t border-paijo-line">
+<style>
+	.custom-footer-bg { background-color: #f7f5f0; }
+	html.dark .custom-footer-bg { background-color: #171717; }
+</style>
+<footer class="custom-footer-bg text-paijo-ink pt-16 pb-8 text-xs font-sans tracking-wide transition-colors duration-300 border-t border-paijo-line">
 	<!-- Logos Row with extra spacing below -->
 	<div class="paijo-container flex justify-center items-center mb-16">
 		<!-- Site Custom Logo (Full Color) -->

@@ -153,15 +153,6 @@ get_header();
 						</div>
 					</header>
 
-					<!-- Featured Image -->
-					<?php if ( $thumbnail ) : ?>
-						<figure class="mb-8">
-							<img class="w-full object-cover aspect-[16/9] border border-paijo-line" src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
-							<?php if ( get_the_post_thumbnail_caption() ) : ?>
-								<figcaption class="mt-3 text-sm text-paijo-muted italic"><?php the_post_thumbnail_caption(); ?></figcaption>
-							<?php endif; ?>
-						</figure>
-					<?php endif; ?>
 
 					<!-- Teaser / Excerpt (Standfirst) -->
 					<?php if ( has_excerpt() ) : ?>

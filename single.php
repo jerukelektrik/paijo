@@ -57,10 +57,10 @@ get_header();
 						</div>
 						
 						<!-- Title -->
-						<h1 class="font-sans font-extrabold text-3xl sm:text-4xl lg:text-5xl text-paijo-ink leading-tight mb-6"><?php the_title(); ?></h1>
+						<h1 class="font-sans font-extrabold text-lg sm:text-2xl text-paijo-ink leading-tight mb-3 sm:mb-6"><?php the_title(); ?></h1>
 						
 						<!-- Author & Meta & Share Bar (Kumparan Hits style) -->
-						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-y border-paijo-line py-4 my-6">
+						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-y border-paijo-line py-4 my-4 sm:my-6">
 							<!-- Author Info -->
 							<div class="flex items-center gap-3 text-xs text-paijo-muted">
 								<!-- Author Avatar -->
@@ -156,7 +156,7 @@ get_header();
 
 					<!-- Teaser / Excerpt (Standfirst) -->
 					<?php if ( has_excerpt() ) : ?>
-						<div class="font-sans text-lg sm:text-xl font-bold text-paijo-ink mb-6 leading-relaxed">
+						<div class="font-sans text-base sm:text-xl font-bold text-paijo-ink mb-5 sm:mb-6 leading-relaxed">
 							<?php the_excerpt(); ?>
 						</div>
 					<?php endif; ?>
@@ -175,7 +175,7 @@ get_header();
 					</div>
 
 					<!-- Tags -->
-					<footer class="mt-10 mb-12 border-t border-paijo-line pt-6 pb-6">
+					<footer class="mt-8 sm:mt-10 mb-0 sm:mb-12 border-t border-paijo-line pt-6 pb-6">
 						<?php 
 						$tags = get_the_tags();
 						if ( $tags ) {
@@ -193,18 +193,51 @@ get_header();
 							}
 							echo '</div></div>';
 						}
+
+						$editorial_team = get_post_meta( get_the_ID(), '_paijo_editorial_team', true );
+						if ( ! empty( $editorial_team ) ) {
+							$team_members = explode( "\n", $editorial_team );
+							$margin_top = $tags ? 'mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-paijo-line border-dashed' : '';
+							echo '<details class="' . esc_attr( $margin_top ) . ' group">';
+							echo '<summary class="list-none [&::-webkit-details-marker]:hidden flex items-center justify-between text-xs font-bold text-paijo-ink uppercase tracking-wider mb-2 cursor-pointer focus:outline-none focus-visible:text-paijo-accent transition-colors select-none">';
+							echo '<div class="flex items-center gap-1.5">';
+							echo '<svg class="w-4 h-4 text-[#f1818f]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>';
+							echo 'Tim Editor';
+							echo '</div>';
+							echo '<svg class="w-4 h-4 text-neutral-400 transform group-open:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>';
+							echo '</summary>';
+							echo '<div class="grid grid-cols-1 gap-4 text-sm text-paijo-muted pt-4 pb-2">';
+							foreach ( $team_members as $member ) {
+								$member = trim( $member );
+								if ( empty( $member ) ) continue;
+								$parts = explode( ':', $member, 2 );
+								if ( count( $parts ) === 2 ) {
+									$role = trim( $parts[0] );
+									$name = trim( $parts[1] );
+									echo '<div class="flex items-baseline gap-2">';
+									echo '<span class="font-semibold text-paijo-ink min-w-[80px]">' . esc_html( $role ) . '</span>';
+									echo '<span>: ' . esc_html( $name ) . '</span>';
+									echo '</div>';
+								} else {
+									echo '<div class="flex items-baseline gap-2">';
+									echo '<span>' . esc_html( $member ) . '</span>';
+									echo '</div>';
+								}
+							}
+							echo '</div></details>';
+						}
 						?>
 					</footer>
 				</article>
 
-				<!-- Mobile navigation (Previous/Next) -->
-				<nav class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-paijo-line mt-12 py-6 text-xs font-bold uppercase tracking-wider text-paijo-muted" aria-label="<?php esc_attr_e( 'Post navigation', 'paijo' ); ?>">
+				<!-- Desktop navigation (Previous/Next) - Hidden on Mobile -->
+				<nav class="hidden md:grid md:grid-cols-2 gap-4 border-t border-paijo-line mt-12 py-6 text-xs font-bold uppercase tracking-wider text-paijo-muted" aria-label="<?php esc_attr_e( 'Post navigation', 'paijo' ); ?>">
 					<div><?php previous_post_link( '%link', esc_html__( '&larr; Previous: %title', 'paijo' ) ); ?></div>
 					<div class="md:text-right"><?php next_post_link( '%link', esc_html__( 'Next: %title &rarr;', 'paijo' ) ); ?></div>
 				</nav>
 
 				<!-- Bottom Related Area -->
-				<div class="mt-12">
+				<div class="mt-0 sm:mt-12">
 					<?php get_template_part( 'template-parts/related-posts' ); ?>
 				</div>
 

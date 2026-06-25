@@ -286,3 +286,56 @@ function paijo_backfill_feed_reels_timestamps(): void {
 
 	update_option( 'paijo_feed_reels_timestamp_backfilled', true );
 }
+
+/**
+ * Register Metabox for Tim Editor
+ */
+add_action( 'add_meta_boxes', 'paijo_register_editorial_team_metabox' );
+function paijo_register_editorial_team_metabox(): void {
+	add_meta_box(
+		'paijo_editorial_team_metabox',
+		__( 'Tim Editor', 'paijo' ),
+		'paijo_editorial_team_metabox_callback',
+		array( 'post', 'paijo_content' ),
+		'normal',
+		'default'
+	);
+}
+
+function paijo_editorial_team_metabox_callback( WP_Post $post ): void {
+	wp_nonce_field( 'paijo_editorial_team_metabox_save', 'paijo_editorial_team_metabox_nonce' );
+	$editorial_team = get_post_meta( $post->ID, '_paijo_editorial_team', true );
+	?>
+	<div style="margin: 10px 0;">
+		<label for="paijo_editorial_team" style="display: block; font-weight: bold; margin-bottom: 8px;"><?php esc_html_e( 'Anggota Tim (Format: Peran : Nama)', 'paijo' ); ?></label>
+		<textarea name="paijo_editorial_team" id="paijo_editorial_team" rows="4" class="large-text" placeholder="Penulis : Budi&#10;Editor : Andi" style="width: 100%; padding: 8px; font-size: 14px;"><?php echo esc_textarea( $editorial_team ); ?></textarea>
+		<p class="description" style="margin-top: 8px;">
+			<?php esc_html_e( 'Masukkan anggota tim editor, satu orang per baris dengan format "Peran : Nama".', 'paijo' ); ?>
+		</p>
+	</div>
+	<?php
+}
+
+add_action( 'save_post', 'paijo_save_editorial_team_metabox_data' );
+function paijo_save_editorial_team_metabox_data( int $post_id ): void {
+	if ( ! isset( $_POST['paijo_editorial_team_metabox_nonce'] ) ) {
+		return;
+	}
+	$nonce = sanitize_text_field( wp_unslash( $_POST['paijo_editorial_team_metabox_nonce'] ) );
+	if ( ! wp_verify_nonce( $nonce, 'paijo_editorial_team_metabox_save' ) ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( isset( $_POST['paijo_editorial_team'] ) ) {
+		$team_data = sanitize_textarea_field( wp_unslash( $_POST['paijo_editorial_team'] ) );
+		update_post_meta( $post_id, '_paijo_editorial_team', $team_data );
+	} else {
+		delete_post_meta( $post_id, '_paijo_editorial_team' );
+	}
+}

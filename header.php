@@ -40,6 +40,14 @@
 		/* Typography for Article Content (Gutenberg Support) */
 		.paijo-prose p {
 			margin-bottom: 1.5em;
+			font-size: 17px !important;
+			line-height: 1.6 !important;
+		}
+		@media (min-width: 640px) {
+			.paijo-prose p {
+				font-size: 20px !important;
+				line-height: 1.8 !important;
+			}
 		}
 		.paijo-prose h1, .paijo-prose h2, .paijo-prose h3, .paijo-prose h4, .paijo-prose h5, .paijo-prose h6 {
 			font-weight: 800; /* Extra bold */

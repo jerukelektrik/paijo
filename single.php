@@ -57,7 +57,7 @@ get_header();
 						</div>
 						
 						<!-- Title -->
-						<h1 class="font-sans font-extrabold text-lg sm:text-2xl text-paijo-ink leading-tight mb-3 sm:mb-6"><?php the_title(); ?></h1>
+						<h1 class="font-sans font-extrabold text-lg sm:text-2xl text-paijo-ink leading-snug mb-3 sm:mb-6"><?php the_title(); ?></h1>
 						
 						<!-- Author & Meta & Share Bar (Kumparan Hits style) -->
 						<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-y border-paijo-line py-4 my-4 sm:my-6">
@@ -173,6 +173,41 @@ get_header();
 						);
 						?>
 					</div>
+
+					<!-- Tentang Mitra Liputan -->
+					<?php
+					$mitra_logo = get_post_meta( get_the_ID(), '_paijo_mitra_logo', true );
+					$mitra_text = get_post_meta( get_the_ID(), '_paijo_mitra_text', true );
+					$mitra_url  = get_post_meta( get_the_ID(), '_paijo_mitra_url', true );
+					if ( ! empty( $mitra_text ) || ! empty( $mitra_logo ) ) :
+					?>
+						<div class="mt-10 mb-8 flex flex-row gap-8 sm:gap-12 items-center">
+							<?php if ( ! empty( $mitra_logo ) ) : ?>
+								<div class="shrink-0">
+									<?php if ( ! empty( $mitra_url ) ) : ?>
+										<a href="<?php echo esc_url( $mitra_url ); ?>" target="_blank" rel="noopener noreferrer" class="block hover:opacity-80 transition-opacity">
+									<?php endif; ?>
+									
+									<img src="<?php echo esc_url( $mitra_logo ); ?>" alt="Mitra Liputan" class="w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-full">
+									
+									<?php if ( ! empty( $mitra_url ) ) : ?>
+										</a>
+									<?php endif; ?>
+								</div>
+							<?php endif; ?>
+							
+							<div class="flex-1">
+								<h3 class="font-sans font-black text-lg sm:text-2xl text-paijo-ink mb-3"><?php esc_html_e( 'Tentang Mitra Liputan', 'paijo' ); ?></h3>
+								<?php if ( ! empty( $mitra_text ) ) : ?>
+									<div style="border-left: 4px solid #f1818f; padding-left: 16px; padding-top: 2px; padding-bottom: 2px;">
+										<div class="text-neutral-700 font-serif [&>p]:mb-2 last:[&>p]:mb-0" style="font-size: 13px; line-height: 1.4;">
+											<?php echo wp_kses_post( wpautop( $mitra_text ) ); ?>
+										</div>
+									</div>
+								<?php endif; ?>
+							</div>
+						</div>
+					<?php endif; ?>
 
 					<!-- Tags -->
 					<footer class="mt-8 sm:mt-10 mb-0 sm:mb-12 border-t border-paijo-line pt-6 pb-6">

@@ -339,3 +339,101 @@ function paijo_save_editorial_team_metabox_data( int $post_id ): void {
 		delete_post_meta( $post_id, '_paijo_editorial_team' );
 	}
 }
+
+/**
+ * Register Metabox for Mitra Liputan
+ */
+add_action( 'add_meta_boxes', 'paijo_register_mitra_liputan_metabox' );
+function paijo_register_mitra_liputan_metabox(): void {
+	add_meta_box(
+		'paijo_mitra_liputan_metabox',
+		__( 'Mitra Liputan', 'paijo' ),
+		'paijo_mitra_liputan_metabox_callback',
+		array( 'post', 'paijo_content' ),
+		'normal',
+		'default'
+	);
+}
+
+function paijo_mitra_liputan_metabox_callback( WP_Post $post ): void {
+	wp_nonce_field( 'paijo_mitra_liputan_metabox_save', 'paijo_mitra_liputan_metabox_nonce' );
+	$mitra_logo = get_post_meta( $post->ID, '_paijo_mitra_logo', true );
+	$mitra_text = get_post_meta( $post->ID, '_paijo_mitra_text', true );
+	$mitra_url  = get_post_meta( $post->ID, '_paijo_mitra_url', true );
+	?>
+	<div style="margin: 10px 0;">
+		<label style="display: block; font-weight: bold; margin-bottom: 8px;"><?php esc_html_e( 'Logo Mitra (URL)', 'paijo' ); ?></label>
+		<div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+			<input type="text" name="paijo_mitra_logo" id="paijo_mitra_logo" value="<?php echo esc_url( $mitra_logo ); ?>" class="regular-text" style="width: 100%; max-width: 400px;">
+			<button type="button" class="button button-secondary" id="paijo_mitra_logo_button"><?php esc_html_e( 'Pilih Gambar', 'paijo' ); ?></button>
+		</div>
+		
+		<label for="paijo_mitra_url" style="display: block; font-weight: bold; margin-bottom: 8px;"><?php esc_html_e( 'Tautan URL Mitra (Opsional)', 'paijo' ); ?></label>
+		<input type="url" name="paijo_mitra_url" id="paijo_mitra_url" value="<?php echo esc_url( $mitra_url ); ?>" class="regular-text" style="width: 100%; max-width: 400px; margin-bottom: 15px;" placeholder="https://...">
+		
+		<label for="paijo_mitra_text" style="display: block; font-weight: bold; margin-bottom: 8px;"><?php esc_html_e( 'Teks Keterangan', 'paijo' ); ?></label>
+		<textarea name="paijo_mitra_text" id="paijo_mitra_text" rows="5" class="large-text" style="width: 100%; padding: 8px; font-size: 14px;"><?php echo esc_textarea( $mitra_text ); ?></textarea>
+		<p class="description" style="margin-top: 8px;">
+			<?php esc_html_e( 'Masukkan teks keterangan tentang mitra liputan (mendukung format dasar/HTML ringan).', 'paijo' ); ?>
+		</p>
+	</div>
+	<script>
+	jQuery(document).ready(function($){
+		var image_frame;
+		$('#paijo_mitra_logo_button').click(function(e) {
+			e.preventDefault();
+			if(image_frame){
+				image_frame.open();
+				return;
+			}
+			image_frame = wp.media({
+				title: 'Pilih Logo Mitra',
+				button: { text: 'Gunakan Gambar Ini' },
+				multiple : false,
+				library : { type : 'image' }
+			});
+			image_frame.on('select', function() {
+				var selection = image_frame.state().get('selection').first().toJSON();
+				$('#paijo_mitra_logo').val(selection.url);
+			});
+			image_frame.open();
+		});
+	});
+	</script>
+	<?php
+}
+
+add_action( 'save_post', 'paijo_save_mitra_liputan_metabox_data' );
+function paijo_save_mitra_liputan_metabox_data( int $post_id ): void {
+	if ( ! isset( $_POST['paijo_mitra_liputan_metabox_nonce'] ) ) {
+		return;
+	}
+	$nonce = sanitize_text_field( wp_unslash( $_POST['paijo_mitra_liputan_metabox_nonce'] ) );
+	if ( ! wp_verify_nonce( $nonce, 'paijo_mitra_liputan_metabox_save' ) ) {
+		return;
+	}
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( isset( $_POST['paijo_mitra_logo'] ) ) {
+		update_post_meta( $post_id, '_paijo_mitra_logo', esc_url_raw( wp_unslash( $_POST['paijo_mitra_logo'] ) ) );
+	}
+	if ( isset( $_POST['paijo_mitra_text'] ) ) {
+		update_post_meta( $post_id, '_paijo_mitra_text', wp_kses_post( wp_unslash( $_POST['paijo_mitra_text'] ) ) );
+	}
+	if ( isset( $_POST['paijo_mitra_url'] ) ) {
+		update_post_meta( $post_id, '_paijo_mitra_url', esc_url_raw( wp_unslash( $_POST['paijo_mitra_url'] ) ) );
+	}
+}
+
+// Ensure wp_enqueue_media is loaded on post edit screens
+add_action( 'admin_enqueue_scripts', 'paijo_enqueue_media_for_metabox' );
+function paijo_enqueue_media_for_metabox( $hook ) {
+	if ( 'post.php' === $hook || 'post-new.php' === $hook ) {
+		wp_enqueue_media();
+	}
+}

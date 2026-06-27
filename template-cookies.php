@@ -1,6 +1,8 @@
 <?php
 /**
- * Template Name: Kebijakan Cookies
+ * Template Name: Cookies
+ *
+ * Template halaman Kebijakan Cookies.
  *
  * @package Paijo
  */
@@ -35,37 +37,60 @@ $admin_email = get_option( 'admin_email' );
 				</div>
 
 				<!-- Content Section -->
-				<div class="paijo-prose prose-lg dark:prose-invert max-w-none text-paijo-ink space-y-6">
+				<div class="paijo-prose prose-lg dark:prose-invert max-w-none text-paijo-ink">
 					
 					<?php 
+					// Tampilkan konten tambahan dari editor (jika ada) di atas struktur default
 					$content = get_the_content();
-					if ( ! empty( $content ) ) : 
-						// Jika user mengisi konten di editor, tampilkan konten tersebut
+					$clean_content = preg_replace( '/&nbsp;|\s+/', '', wp_strip_all_tags( $content ) );
+					if ( strlen( $clean_content ) > 15 ) {
+						echo '<div class="mb-8">';
 						the_content();
-					else : 
-						// Konten Dinamis Default jika editor WordPress dibiarkan kosong
+						echo '</div>';
+					}
 					?>
-						<p>Kebijakan Cookies ini menjelaskan apa itu cookies dan bagaimana <strong><?php echo esc_html( $site_name ); ?></strong> menggunakannya di website <a href="<?php echo esc_url( $site_url ); ?>" class="text-[#f1818f] hover:underline"><?php echo esc_url( $site_url ); ?></a>. Anda disarankan untuk membaca kebijakan ini agar Anda dapat memahami jenis cookie apa yang kami gunakan, informasi yang kami kumpulkan menggunakan cookie, dan bagaimana informasi tersebut diproses.</p>
 
-						<h3 class="text-2xl font-black mt-10 mb-4">Apa itu Cookies?</h3>
-						<p>Cookies adalah file teks kecil yang dikirim ke browser web Anda oleh situs web yang Anda kunjungi. File cookie disimpan di perangkat Anda dan memungkinkan layanan kami (atau pihak ketiga penyedia layanan) untuk mengenali Anda, membuat kunjungan Anda berikutnya lebih mudah, dan layanan kami lebih personal bagi Anda.</p>
+						<!-- Pendahuluan -->
+						<div style="background: rgba(241,129,143,0.05); border-left: 4px solid #f1818f; border-radius: 0 0.75rem 0.75rem 0; padding: 1.5rem; margin-bottom: 2rem;">
+							<p style="font-size: 1rem; line-height: 1.75; margin: 0; font-family: 'PT Serif', Georgia, serif;">
+								Kebijakan Cookie ini menjelaskan apa itu cookie dan bagaimana <strong><?php echo esc_html( $site_name ); ?></strong> menggunakannya. Anda sebaiknya membaca kebijakan ini agar Anda dapat memahami jenis cookie yang kami gunakan, informasi yang kami kumpulkan menggunakan cookie, dan bagaimana informasi tersebut digunakan.
+							</p>
+						</div>
 
-						<h3 class="text-2xl font-black mt-10 mb-4">Bagaimana <?php echo esc_html( $site_name ); ?> Menggunakan Cookies</h3>
-						<p>Saat Anda menggunakan dan mengakses website kami, kami mungkin menempatkan sejumlah file cookie di web browser Anda. Kami menggunakan cookie untuk tujuan esensial dan fungsional berikut:</p>
-						<ul class="list-disc pl-6 space-y-2 mt-4 mb-6">
-							<li><strong>Cookie Esensial:</strong> Cookie yang sangat diperlukan untuk pengoperasian situs web kami. Ini termasuk cookie yang memungkinkan Anda untuk masuk ke area aman di situs web kami.</li>
-							<li><strong>Cookie Analitik / Kinerja:</strong> Membantu kami mengenali dan menghitung jumlah pengunjung dan melihat bagaimana pengunjung bergerak di sekitar situs web saat menggunakannya. Ini membantu kami memperbaiki cara kerja situs web.</li>
-							<li><strong>Cookie Fungsionalitas:</strong> Digunakan untuk mengenali Anda saat Anda kembali ke situs web. Ini memungkinkan kami mempersonalisasi konten untuk Anda dan mengingat preferensi Anda.</li>
-							<li><strong>Cookie Pihak Ketiga:</strong> Selain cookie kami sendiri, kami mungkin juga menggunakan berbagai cookie dari pihak ketiga untuk melaporkan statistik lalu lintas dan menayangkan iklan fungsional.</li>
+						<h2 style="margin-top: 2rem; margin-bottom: 1rem;">1. Apa itu Cookie?</h2>
+						<p>Cookie adalah file teks kecil yang dikirimkan ke perangkat keras (komputer atau perangkat seluler) Anda melalui browser web saat Anda mengunjungi sebuah situs. Cookie memungkinkan situs web mengenali perangkat Anda dan menyimpan beberapa informasi tentang preferensi Anda atau tindakan Anda di masa lalu.</p>
+
+						<h2 style="margin-top: 2rem; margin-bottom: 1rem;">2. Bagaimana Kami Menggunakan Cookie?</h2>
+						<p>Kami menggunakan cookie untuk beberapa alasan yang dirinci di bawah ini:</p>
+						<ul style="list-style-type: disc; padding-left: 1.5rem; margin-bottom: 2rem; space-y: 0.5rem;">
+							<li style="margin-bottom: 0.5rem;"><strong>Cookie Penting (Essential Cookies):</strong> Cookie ini sangat penting untuk memberi Anda layanan yang tersedia melalui situs web kami dan untuk memungkinkan Anda menggunakan beberapa fiturnya (misal: login).</li>
+							<li style="margin-bottom: 0.5rem;"><strong>Cookie Kinerja dan Analitik:</strong> Cookie ini melacak informasi tentang lalu lintas ke situs web dan bagaimana pengguna berinteraksi dengan situs web (misal: Google Analytics). Informasi yang dikumpulkan tidak mengidentifikasi pengunjung secara individu.</li>
+							<li style="margin-bottom: 0.5rem;"><strong>Cookie Fungsionalitas:</strong> Cookie ini memungkinkan situs web mengingat pilihan yang Anda buat (seperti nama pengguna Anda, preferensi bahasa, atau wilayah Anda).</li>
+							<li style="margin-bottom: 0.5rem;"><strong>Cookie Iklan atau Penargetan:</strong> Cookie ini digunakan untuk menayangkan iklan yang lebih relevan bagi Anda dan minat Anda. Mereka juga digunakan untuk membatasi berapa kali Anda melihat iklan serta membantu mengukur efektivitas kampanye iklan.</li>
 						</ul>
 
-						<h3 class="text-2xl font-black mt-10 mb-4">Pilihan Anda Terkait Cookies</h3>
-						<p>Jika Anda ingin menghapus cookie atau menginstruksikan browser web Anda untuk selalu menghapus atau menolak cookie secara otomatis, silakan kunjungi halaman bantuan pada pengaturan browser web Anda.</p>
-						<p>Harap diperhatikan bahwa jika Anda menghapus cookie atau menolak untuk menerimanya, Anda mungkin tidak dapat menggunakan semua fitur interaktif yang kami tawarkan, dan beberapa halaman mungkin tidak ditampilkan dengan semestinya.</p>
+						<h2 style="margin-top: 2rem; margin-bottom: 1rem;">3. Cookie Pihak Ketiga</h2>
+						<p>Dalam beberapa kasus khusus, kami juga menggunakan cookie yang disediakan oleh pihak ketiga yang tepercaya. Bagian berikut merinci cookie pihak ketiga mana yang mungkin Anda temui melalui situs ini.</p>
+						<ul style="list-style-type: disc; padding-left: 1.5rem; margin-bottom: 2rem; space-y: 0.5rem;">
+							<li style="margin-bottom: 0.5rem;">Situs ini menggunakan <strong>Google Analytics</strong> yang merupakan salah satu solusi analitik paling tersebar luas dan tepercaya di web untuk membantu kami memahami bagaimana Anda menggunakan situs ini dan cara kami dapat meningkatkan pengalaman Anda.</li>
+							<li style="margin-bottom: 0.5rem;">Layanan <strong>Google AdSense</strong> yang kami gunakan untuk menayangkan iklan menggunakan cookie DoubleClick untuk menayangkan iklan yang lebih relevan di seluruh web dan membatasi frekuensi penayangan iklan tertentu kepada Anda.</li>
+							<li style="margin-bottom: 0.5rem;">Kami juga menggunakan tombol dan/atau plugin media sosial (Facebook, Twitter, dll) di situs ini yang memungkinkan Anda terhubung dengan jejaring sosial Anda. Agar ini berfungsi, situs media sosial tersebut akan mengatur cookie melalui situs kami.</li>
+						</ul>
 
-						<h3 class="text-2xl font-black mt-10 mb-4">Hubungi Kami</h3>
-						<p>Jika Anda memiliki pertanyaan tentang Kebijakan Cookies kami atau bagaimana kami menangani data Anda, silakan hubungi administrator kami melalui email di: <a href="mailto:<?php echo esc_attr( $admin_email ); ?>" class="text-[#f1818f] font-bold hover:underline"><?php echo esc_html( $admin_email ); ?></a>.</p>
-					<?php endif; ?>
+						<h2 style="margin-top: 2rem; margin-bottom: 1rem;">4. Menonaktifkan Cookie</h2>
+						<p>Anda dapat mencegah pengaturan cookie dengan menyesuaikan pengaturan di browser Anda (lihat Bantuan browser Anda untuk cara melakukannya). Sadarilah bahwa menonaktifkan cookie akan memengaruhi fungsionalitas situs ini dan banyak situs web lain yang Anda kunjungi. Oleh karena itu, disarankan agar Anda tidak menonaktifkan cookie.</p>
+
+						<h2 style="margin-top: 2rem; margin-bottom: 1rem;">5. Informasi Lebih Lanjut</h2>
+						<p style="margin-bottom: 2.5rem;">Semoga hal ini mengklarifikasi hal-hal untuk Anda. Jika ada sesuatu yang Anda tidak yakin apakah Anda butuhkan atau tidak, biasanya lebih aman untuk membiarkan cookie tetap aktif. Untuk informasi lebih umum tentang cookie, silakan baca artikel mengenai "HTTP Cookies".</p>
+
+						<!-- Hubungi Kami -->
+						<div style="margin-top: 2rem; background: #f5f5f5; border-radius: 1rem; padding: 2rem; text-align: center;">
+							<h3 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 1rem; margin-top: 0;">Masih Punya Pertanyaan?</h3>
+							<p style="color: var(--paijo-muted); margin-bottom: 1.5rem;">Jika Anda masih mencari informasi lebih lanjut mengenai Kebijakan Cookie kami, Anda dapat menghubungi kami.</p>
+							<a href="mailto:<?php echo esc_attr( $admin_email ); ?>" style="display: inline-block; background: #f1818f; color: white; font-weight: bold; padding: 0.875rem 2rem; border-radius: 9999px; text-decoration: none; transition: background-color 0.3s ease;">
+								Hubungi: <?php echo esc_html( $admin_email ); ?>
+							</a>
+						</div>
 
 				</div>
 			</article>

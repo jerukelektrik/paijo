@@ -19,7 +19,11 @@
 			}
 		})();
 	</script>
-	<link rel="icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/pj-logo.ico' ); ?>" type="image/x-icon">
+	<link rel="icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>">
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>">
+	<link rel="manifest" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/site.webmanifest' ); ?>">
+	<meta name="theme-color" content="#ffffff">
 	<?php wp_head(); ?>
 	<style>
 		/* Global override for Gutenberg Image Captions (News Media Best Practice) */

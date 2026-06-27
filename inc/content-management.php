@@ -187,8 +187,6 @@ function paijo_ensure_content_category_terms(): void {
 		'skena-jogsel'              => __( 'Skena Jogsel', 'paijo' ),
 		'derby-istimewa'            => __( 'Derby Istimewa', 'paijo' ),
 		'kuliner-berbintang'        => __( 'Kuliner Berbintang', 'paijo' ),
-		'kategori-tambahan-1'       => __( 'Kategori Tambahan 1', 'paijo' ),
-		'kategori-tambahan-2'       => __( 'Kategori Tambahan 2', 'paijo' ),
 	);
 
 	foreach ( $terms as $slug => $name ) {

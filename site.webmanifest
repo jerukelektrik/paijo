@@ -1,0 +1,19 @@
+{
+  "name": "Paijo",
+  "short_name": "Paijo",
+  "icons": [
+    {
+      "src": "/wp-content/themes/paijo/assets/images/pj-logo.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/wp-content/themes/paijo/assets/images/pj-logo.ico",
+      "sizes": "720x222",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

@@ -20,8 +20,8 @@
 		})();
 	</script>
 	<!-- Favicon & Icons -->
-	<link rel="icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>" sizes="32x32">
-	<link rel="icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>" sizes="192x192">
+	<link rel="icon" type="image/png" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>" sizes="48x48">
+	<link rel="icon" type="image/png" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>" sizes="192x192">
 	<link rel="apple-touch-icon" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>">
 	<meta name="msapplication-TileImage" content="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/pj-logo.png' ); ?>">
 	<link rel="manifest" href="<?php echo esc_url( get_stylesheet_directory_uri() . '/site.webmanifest' ); ?>">

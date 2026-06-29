@@ -48,6 +48,23 @@ function paijo_enqueue_assets(): void {
 		array( 'strategy' => 'defer', 'in_footer' => true )
 	);
 
+	if ( is_singular() || is_archive() ) {
+		wp_enqueue_style(
+			'paijo-lightbox',
+			PAIJO_URI . '/assets/css/lightbox.css',
+			array( 'paijo-theme' ),
+			paijo_asset_version( 'assets/css/lightbox.css' )
+		);
+
+		wp_enqueue_script(
+			'paijo-lightbox',
+			PAIJO_URI . '/assets/js/lightbox.js',
+			array(),
+			paijo_asset_version( 'assets/js/lightbox.js' ),
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
+
 	if ( is_front_page() ) {
 		wp_enqueue_script(
 			'paijo-slider',

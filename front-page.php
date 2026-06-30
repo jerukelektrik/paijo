@@ -111,7 +111,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 	$featured_content_categories = array_slice( $featured_content_categories, 0, 4 );
 	if ( ! empty( $featured_content_categories ) ) :
 	?>
-		<section class="paijo-section border-b border-paijo-line bg-paijo-paper relative overflow-hidden">
+		<section class="paijo-section bg-paijo-paper relative overflow-hidden">
 			<!-- Dark Overlay for subtle background shadow effect -->
 			<div class="absolute right-0 bottom-0 w-[500px] h-[210px] sm:w-[650px] sm:h-[270px] lg:w-[800px] lg:h-[333px] bg-contain bg-right-bottom bg-no-repeat z-0 pointer-events-none watercolor-bg-layer" style="background-image: url('<?php echo esc_url( PAIJO_URI . '/assets/images/watercolor.png?ver=' . paijo_asset_version( 'assets/images/watercolor.png' ) ); ?>');"></div>
 			<div class="paijo-container relative z-10">
@@ -169,7 +169,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 		$showcase_grid_posts    = array_slice( $content_showcase_posts, 1, 6 );
 		$featured_image         = paijo_get_thumbnail_url( (int) $showcase_featured->ID, 'paijo-hero' );
 		?>
-		<section class="paijo-section bg-paijo-paper text-paijo-ink border-b border-paijo-line">
+		<section class="paijo-section bg-paijo-paper text-paijo-ink">
 			<div class="paijo-container">
 				<div class="mb-12 text-center">
 					<h2 class="text-3xl sm:text-5xl font-sans font-black tracking-tight"><?php esc_html_e( 'Terus Update', 'paijo' ); ?></h2>
@@ -252,7 +252,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 
 		if ( $toko_query->have_posts() ) :
 			?>
-			<section class="paijo-section border-b border-paijo-line bg-paijo-paper relative overflow-hidden">
+			<section class="paijo-section bg-paijo-paper relative overflow-hidden">
 				<div class="absolute right-0 bottom-0 w-[500px] h-[210px] sm:w-[650px] sm:h-[270px] lg:w-[800px] lg:h-[333px] bg-contain bg-right-bottom bg-no-repeat z-0 pointer-events-none watercolor-bg-layer" style="background-image: url('<?php echo esc_url( PAIJO_URI . '/assets/images/watercolor.png?ver=' . paijo_asset_version( 'assets/images/watercolor.png' ) ); ?>');"></div>
 				<div class="paijo-container relative z-10">
 					<!-- Header Section -->
@@ -434,7 +434,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			$insight_grid_posts = array_slice( $insight_posts, 1, 6 );
 			$insight_featured_img = paijo_get_thumbnail_url( (int) $insight_featured->ID, 'paijo-hero' );
 			?>
-			<section class="paijo-section bg-paijo-paper text-paijo-ink border-b border-paijo-line">
+			<section class="paijo-section bg-paijo-paper text-paijo-ink">
 				<div class="paijo-container">
 					<div class="mb-12 text-center">
 						<h2 class="text-3xl sm:text-5xl font-sans font-black tracking-tight"><?php echo esc_html( $insight_term->name ); ?></h2>
@@ -523,7 +523,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			$tinggal_featured_img = paijo_get_thumbnail_url( (int) $tinggal_posts[0]->ID, 'paijo-hero' );
 			$tinggal_term_link    = get_term_link( $tinggal_term );
 			?>
-			<section class="border-b border-paijo-line bg-paijo-card">
+			<section class="bg-paijo-card">
 				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 overflow-hidden">
 					
 					<!-- Column 1: Category Gateway Card -->
@@ -600,7 +600,7 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 
 	if ( $feed_reels_query->have_posts() ) :
 		?>
-		<section class="paijo-section border-b border-paijo-line bg-paijo-paper relative overflow-hidden">
+		<section class="paijo-section bg-paijo-paper relative overflow-hidden">
 			<!-- Background Layer: Positioned specifically in the bottom right corner with custom dark mode pink filter -->
 			<div class="absolute right-0 bottom-0 w-[500px] h-[210px] sm:w-[650px] sm:h-[270px] lg:w-[800px] lg:h-[333px] bg-contain bg-right-bottom bg-no-repeat z-0 pointer-events-none watercolor-bg-layer" style="background-image: url('<?php echo esc_url( PAIJO_URI . '/assets/images/watercolor.png?ver=' . paijo_asset_version( 'assets/images/watercolor.png' ) ); ?>');"></div>
 			<div class="paijo-container relative z-10">
@@ -767,6 +767,40 @@ $hero_ids   = paijo_post_ids_from_query( $hero_query );
 			</div>
 		</section>
 	<?php endif; ?>
+
+	<!-- Stats & Social Banner Section -->
+	<section class="paijo-section bg-paijo-paper">
+		<div class="paijo-container text-center">
+			<h2 class="text-2xl sm:text-4xl font-sans font-black tracking-tight mb-4 text-paijo-ink max-w-3xl mx-auto leading-tight">
+				<span class="text-[#f1818f]">50–100 juta</span> pengunjung bulanan di seluruh kanal Pandangan Jogja
+			</h2>
+			<p class="text-xs sm:text-sm text-paijo-muted font-medium uppercase tracking-[0.2em] mb-8">
+				<?php esc_html_e( 'Ikuti Kami di Media Sosial', 'paijo' ); ?>
+			</p>
+			
+			<div class="flex items-center justify-center gap-6 sm:gap-8 text-paijo-muted">
+				<!-- FB -->
+				<a href="https://www.facebook.com/pandanganjogjacom" class="hover:text-[#f1818f] hover:-translate-y-1 transition-all duration-300" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+					<svg class="w-6 h-6 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/></svg>
+				</a>
+				
+				<!-- X (Twitter) -->
+				<a href="https://x.com/pandangan_jogja" class="hover:text-[#f1818f] hover:-translate-y-1 transition-all duration-300" aria-label="X" target="_blank" rel="noopener noreferrer">
+					<svg class="w-6 h-6 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.657l-5.214-6.817L5.769 21.75H2.462l7.732-8.835L1.766 2.25h6.837l4.867 6.52 5.774-6.52zM16.5 20.25h1.833L7.997 3.75H6.074l10.426 16.5z"/></svg>
+				</a>
+				
+				<!-- Instagram -->
+				<a href="https://www.instagram.com/pandanganjogja" class="hover:text-[#f1818f] hover:-translate-y-1 transition-all duration-300" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+					<svg class="w-6 h-6 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+				</a>
+				
+				<!-- TikTok -->
+				<a href="https://www.tiktok.com/@pandanganjogja" class="hover:text-[#f1818f] hover:-translate-y-1 transition-all duration-300" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+					<svg class="w-6 h-6 sm:w-8 sm:h-8 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64c.29 0 .57.04.84.13V9.5a6.27 6.27 0 00-3.15-.3A6.34 6.34 0 002 15.56a6.34 6.34 0 0010.14 5.06 6.27 6.27 0 002.31-4.95V8.56A8.34 8.34 0 0019.59 11V7.58c-.85 0-1.67-.32-2.31-.89z"/></svg>
+				</a>
+			</div>
+		</div>
+	</section>
 </main>
 
 <?php

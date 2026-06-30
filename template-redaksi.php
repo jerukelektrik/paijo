@@ -64,16 +64,16 @@ $admin_email = get_option( 'admin_email' );
 							<h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; border-bottom: 1px solid var(--paijo-line); padding-bottom: 0.5rem; text-align: center; margin-top: 2rem;">Dewan Redaksi</h3>
 							
 							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">CEO</h3>
-							<p style="margin-top: 0; margin-bottom: 1.5rem; font-weight: bold;">Eko Sugiarto Putro</p>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Eko Sugiarto Putro</p>
 							
 							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Pemimpin Redaksi</h3>
-							<p style="margin-top: 0; margin-bottom: 1.5rem; font-weight: bold;">Erick Tanjung</p>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Erick Tanjung</p>
 							
 							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Manajer News</h3>
-							<p style="margin-top: 0; margin-bottom: 1.5rem; font-weight: bold;">Widi RH Pradana</p>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Widi RH Pradana</p>
 							
 							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Multiplatform Journalist</h3>
-							<ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 1.5rem; font-weight: bold;">
+							<ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 1.5rem; font-size: 1.125rem; font-weight: 700;">
 								<li style="margin-bottom: 0.25rem;">Resti Damayanti</li>
 								<li style="margin-bottom: 0.25rem;">Gigih Imanadi</li>
 								<li style="margin-bottom: 0.25rem;">M. Iqbal Tawakal</li>
@@ -82,7 +82,43 @@ $admin_email = get_option( 'admin_email' );
 							</ul>
 							
 							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Visual Arts Multiplatform Journalist</h3>
-							<p style="margin-top: 0; margin-bottom: 1.5rem; font-weight: bold;">Eka Putri Mariningsih</p>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Eka Putri Mariningsih</p>
+							
+							<h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; border-bottom: 1px solid var(--paijo-line); padding-bottom: 0.5rem; text-align: center; margin-top: 3rem;">Branded Content Studio</h3>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Manajer Branded Content Studio</h3>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Arif UT</p>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Branded Multiplatform Journalist</h3>
+							<ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 1.5rem; font-size: 1.125rem; font-weight: 700;">
+								<li style="margin-bottom: 0.25rem;">Gracetika</li>
+								<li style="margin-bottom: 0.25rem;">Bening Banyune</li>
+								<li style="margin-bottom: 0.25rem;">Ike Kirana</li>
+							</ul>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Rapid Producer</h3>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Danang Bakti K</p>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Client Partner</h3>
+							<ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 1.5rem; font-size: 1.125rem; font-weight: 700;">
+								<li style="margin-bottom: 0.25rem;">Viantika Millenia Sepsheala</li>
+								<li style="margin-bottom: 0.25rem;">Mawar Berliana</li>
+							</ul>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Pitch & Insight Officer</h3>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Zakiyyah Alyya</p>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">Koresponden</h3>
+							<ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 1.5rem; font-size: 1.125rem; font-weight: 700;">
+								<li style="margin-bottom: 0.25rem;">Intan</li>
+								<li style="margin-bottom: 0.25rem;">Triyo</li>
+							</ul>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">CSR, Higher Education & Vocational Partnership Officer</h3>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Florentia Estevania Inguliman</p>
+							
+							<h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; margin-top: 1.5rem; color: var(--paijo-muted);">HR & Finance</h3>
+							<p style="font-size: 1.125rem; font-weight: 700; margin-top: 0; margin-bottom: 1.5rem;">Maya P</p>
 						</div>
 
 						<!-- Disclaimer Integritas -->

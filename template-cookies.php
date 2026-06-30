@@ -87,7 +87,7 @@ $admin_email = get_option( 'admin_email' );
 						<div style="margin-top: 2rem; background: #f5f5f5; border-radius: 1rem; padding: 2rem; text-align: center;">
 							<h3 style="font-size: 1.5rem; font-weight: 900; margin-bottom: 1rem; margin-top: 0;">Masih Punya Pertanyaan?</h3>
 							<p style="color: var(--paijo-muted); margin-bottom: 1.5rem;">Jika Anda masih mencari informasi lebih lanjut mengenai Kebijakan Cookie kami, Anda dapat menghubungi kami.</p>
-							<a href="mailto:<?php echo esc_attr( $admin_email ); ?>" class="inline-flex flex-col sm:flex-row items-center justify-center bg-[#f1818f] text-white font-bold py-3.5 px-6 sm:px-8 rounded-full transition-colors w-full sm:w-auto hover:bg-[#d96a78] max-w-full no-underline">
+							<a href="mailto:<?php echo esc_attr( $admin_email ); ?>" class="inline-flex flex-col sm:flex-row items-center justify-center bg-[#f1818f] text-white font-bold rounded-full transition-colors w-full sm:w-auto hover:bg-[#d96a78] max-w-full no-underline" style="padding: 1rem 2.5rem;">
 								<span class="sm:mr-1.5 mb-0.5 sm:mb-0 text-sm sm:text-base">Hubungi:</span>
 								<span class="break-all text-center text-sm sm:text-base"><?php echo esc_html( $admin_email ); ?></span>
 							</a>

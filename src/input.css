@@ -72,6 +72,63 @@ html.dark {
     @apply inline-flex items-center justify-center rounded-full bg-paijo-ink px-5 py-2.5 text-sm font-extrabold text-white hover:bg-paijo-accent;
   }
 
+  .paijo-hamburger {
+    @apply relative inline-flex w-5 h-5 items-center justify-center;
+  }
+
+  .paijo-hamburger-bar {
+    @apply absolute left-0 right-0 h-[2px] bg-current rounded-full transition-all duration-300 ease-in-out;
+  }
+
+  .paijo-hamburger-bar-top {
+    top: 4px;
+  }
+
+  .paijo-hamburger-bar-middle {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .paijo-hamburger-bar-bottom {
+    bottom: 4px;
+  }
+
+  .is-open .paijo-hamburger-bar-top {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .is-open .paijo-hamburger-bar-middle {
+    opacity: 0;
+  }
+
+  .is-open .paijo-hamburger-bar-bottom {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+  }
+
+  .paijo-theme-toggle {
+    @apply rounded-full border border-white/15 text-white bg-white/10 backdrop-blur-sm w-10 h-10 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none;
+  }
+
+  header.bg-transparent .paijo-theme-toggle {
+    @apply border-white/30 bg-transparent text-white;
+  }
+
+  .paijo-theme-toggle:hover {
+    @apply border-paijo-accent text-paijo-accent bg-white/20;
+  }
+
+  .paijo-theme-toggle svg {
+    @apply w-5 h-5 transition-all duration-300 ease-in-out;
+  }
+
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, fill 0.35s ease, stroke 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease !important;
+  }
+
   .paijo-grid-archive {
     @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
   }
@@ -184,25 +241,7 @@ header:hover img.custom-logo-white {
   box-shadow: 0 0 0 1px #f1818f inset;
 }
 
-/* Custom styling for Tag links at the footer of single post */
-footer.border-t a {
-  background-color: #f1818f !important;
-  color: #ffffff !important;
-  padding: 4px 12px;
-  border-radius: 9999px;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-}
-footer.border-t a:hover {
-  background-color: #ffffff !important;
-  color: #f1818f !important;
-  box-shadow: 0 0 0 1px #f1818f inset;
-}
+
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-none::-webkit-scrollbar {

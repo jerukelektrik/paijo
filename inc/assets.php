@@ -25,6 +25,13 @@ function paijo_enqueue_assets(): void {
 		paijo_asset_version( 'assets/css/theme.css' )
 	);
 
+	wp_enqueue_style(
+		'paijo-hamburger',
+		PAIJO_URI . '/assets/css/hamburger.css',
+		array( 'paijo-theme' ),
+		paijo_asset_version( 'assets/css/hamburger.css' )
+	);
+
 	wp_enqueue_script(
 		'paijo-navigation',
 		PAIJO_URI . '/assets/js/navigation.js',
@@ -40,6 +47,23 @@ function paijo_enqueue_assets(): void {
 		paijo_asset_version( 'assets/js/theme-toggle.js' ),
 		array( 'strategy' => 'defer', 'in_footer' => true )
 	);
+
+	if ( is_singular() || is_archive() ) {
+		wp_enqueue_style(
+			'paijo-lightbox',
+			PAIJO_URI . '/assets/css/lightbox.css',
+			array( 'paijo-theme' ),
+			paijo_asset_version( 'assets/css/lightbox.css' )
+		);
+
+		wp_enqueue_script(
+			'paijo-lightbox',
+			PAIJO_URI . '/assets/js/lightbox.js',
+			array(),
+			paijo_asset_version( 'assets/js/lightbox.js' ),
+			array( 'strategy' => 'defer', 'in_footer' => true )
+		);
+	}
 
 	if ( is_front_page() ) {
 		wp_enqueue_script(

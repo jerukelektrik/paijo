@@ -16,6 +16,7 @@
 
   if (navToggle && mobileNav) {
     setExpanded(navToggle, mobileNav, false);
+    navToggle.classList.remove('is-open');
     navToggle.addEventListener('click', () => {
       const expanded = navToggle.getAttribute('aria-expanded') === 'true';
       const willExpand = !expanded;
@@ -26,11 +27,13 @@
       }
       
       setExpanded(navToggle, mobileNav, willExpand);
+      navToggle.classList.toggle('is-open', willExpand);
     });
   }
 
   if (searchToggle && searchPanel) {
     setExpanded(searchToggle, searchPanel, false);
+    searchToggle.classList.remove('is-open');
     searchToggle.addEventListener('click', () => {
       const expanded = searchToggle.getAttribute('aria-expanded') === 'true';
       const willExpand = !expanded;
@@ -38,9 +41,11 @@
       // If expanding search panel, close mobile menu
       if (willExpand && navToggle && mobileNav) {
         setExpanded(navToggle, mobileNav, false);
+        navToggle.classList.remove('is-open');
       }
       
       setExpanded(searchToggle, searchPanel, willExpand);
+      searchToggle.classList.toggle('is-open', willExpand);
       
       const input = searchPanel.querySelector('input[type="search"]');
       if (willExpand && input) {

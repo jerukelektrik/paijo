@@ -108,13 +108,13 @@ function paijo_get_inline_related_post_html( $related_post ) {
 	if ( ! empty( $cats ) ) {
 		$cat      = $cats[0];
 		$cat_html = sprintf(
-			'<a href="%s" class="inline-block paijo-category-capsule px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider mb-2">%s</a>',
+			'<a href="%s" class="inline-block text-[10px] font-black uppercase tracking-wider text-paijo-accent hover:text-paijo-ink transition-colors">%s</a>',
 			esc_url( get_category_link( $cat->term_id ) ),
 			esc_html( $cat->name )
 		);
 	} else {
 		$cat_html = sprintf(
-			'<span class="inline-block paijo-category-capsule px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider mb-2">%s</span>',
+			'<span class="inline-block text-[10px] font-black uppercase tracking-wider text-paijo-accent">%s</span>',
 			esc_html( paijo_get_category_label( $related_post->ID ) )
 		);
 	}
@@ -122,7 +122,7 @@ function paijo_get_inline_related_post_html( $related_post ) {
 	$thumb_html = '';
 	if ( $thumb_url ) {
 		$thumb_html = sprintf(
-			'<a href="%s" class="flex-shrink-0 block w-20 h-20 sm:w-24 sm:h-24 overflow-hidden rounded-xl border border-paijo-line/30 hover:scale-[1.02] transition-transform duration-200">
+			'<a href="%s" class="flex-shrink-0 block w-16 h-16 sm:w-24 sm:h-24 overflow-hidden rounded-lg sm:rounded-xl border border-paijo-line/30 hover:scale-[1.02] transition-transform duration-200">
 				<img class="w-full h-full object-cover" src="%s" alt="%s">
 			</a>',
 			esc_url( $permalink ),
@@ -132,17 +132,17 @@ function paijo_get_inline_related_post_html( $related_post ) {
 	}
 
 	return sprintf(
-		'<div class="my-8 flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl bg-[#F8F9FA] dark:bg-neutral-900 border border-transparent hover:bg-[#F1F3F5] dark:hover:bg-neutral-800/80 transition-all duration-200 non-prose">
+		'<div class="my-6 sm:my-8 flex items-center justify-between gap-3 sm:gap-4 p-2.5 sm:p-5 rounded-xl bg-[#F8F9FA] dark:bg-neutral-900 border border-transparent hover:bg-[#F1F3F5] dark:hover:bg-neutral-800/80 transition-all duration-200 non-prose">
 			<!-- Left content -->
 			<div class="flex-1 min-w-0">
 				<!-- Category Capsule -->
-				<div class="mb-1">%s</div>
+				<div class="mb-1.5">%s</div>
 				<!-- Title -->
-				<h4 class="font-sans font-extrabold text-sm sm:text-base text-white leading-snug mb-2 line-clamp-2">
+				<div class="font-sans font-extrabold text-xs sm:text-base text-paijo-ink leading-tight sm:leading-snug mb-1 sm:mb-1.5 line-clamp-2">
 					<a href="%s" class="hover:text-paijo-accent transition-colors duration-200">%s</a>
-				</h4>
+				</div>
 				<!-- Date -->
-				<div class="text-[11px] sm:text-xs text-paijo-muted font-bold">%s</div>
+				<div class="text-[9px] sm:text-xs text-paijo-muted font-bold">%s</div>
 			</div>
 			<!-- Right Thumbnail -->
 			%s

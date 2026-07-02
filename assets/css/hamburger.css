@@ -1,0 +1,119 @@
+.paijo-hamburger {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.paijo-hamburger-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 9999px;
+  transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease, bottom 0.3s ease;
+}
+
+.paijo-hamburger-bar-top {
+  top: 4px;
+}
+
+.paijo-hamburger-bar-middle {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.paijo-hamburger-bar-bottom {
+  bottom: 4px;
+}
+
+.is-open .paijo-hamburger-bar-top {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.is-open .paijo-hamburger-bar-middle {
+  opacity: 0;
+}
+
+.is-open .paijo-hamburger-bar-bottom {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+.paijo-search-icon {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.paijo-search-icon svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.2s ease, transform 0.3s ease;
+}
+
+.paijo-search-icon-default {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.paijo-search-icon-close {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.is-open .paijo-search-icon-default {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.is-open .paijo-search-icon-close {
+  opacity: 1;
+  transform: scale(1);
+}
+
+footer.border-t a {
+  position: relative;
+  background-color: transparent !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: inherit !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  display: inline !important;
+}
+
+footer.border-t a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s ease;
+}
+
+footer.border-t a:hover::after,
+footer.border-t a:focus::after {
+  transform: scaleX(1);
+}
+
+footer.border-t a:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}

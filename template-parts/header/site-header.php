@@ -22,42 +22,65 @@ $btn_class = $is_home
 			<div class="flex items-center gap-2.5 w-1/3 z-10">
 				<!-- Column 1: Hamburger Menu -->
 				<button class="<?php echo esc_attr( $btn_class ); ?>" type="button" data-paijo-header-btn data-paijo-nav-toggle aria-controls="paijo-mobile-nav" aria-expanded="false" aria-label="<?php esc_attr_e( 'Menu', 'paijo' ); ?>">
-					<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-						<line x1="4" y1="12" x2="20" y2="12"></line>
-						<line x1="4" y1="6" x2="20" y2="6"></line>
-						<line x1="4" y1="18" x2="20" y2="18"></line>
-					</svg>
+					<span class="paijo-hamburger" aria-hidden="true">
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-top"></span>
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-middle"></span>
+						<span class="paijo-hamburger-bar paijo-hamburger-bar-bottom"></span>
+					</span>
 				</button>
 				<!-- Column 2: Search Icon -->
 				<button class="<?php echo esc_attr( $btn_class ); ?>" type="button" data-paijo-header-btn data-paijo-search-toggle aria-controls="paijo-search-panel" aria-expanded="false" aria-label="<?php esc_attr_e( 'Search', 'paijo' ); ?>">
-					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-						<circle cx="11" cy="11" r="8"></circle>
-						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-					</svg>
+					<span class="paijo-search-icon" aria-hidden="true">
+						<svg class="paijo-search-icon-default h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="11" cy="11" r="8"></circle>
+							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+						</svg>
+						<svg class="paijo-search-icon-close h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+						</svg>
+					</span>
 				</button>
 			</div>
 
 			<!-- Column 3: Logo Pandangan Jogja (Center) -->
 			<div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
-				<a class="flex items-center no-underline" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<?php if ( has_custom_logo() ) : ?>
-						<span class="max-w-44 block"><?php the_custom_logo(); ?></span>
-					<?php else : ?>
-						<img class="custom-logo custom-logo-dark h-10 w-auto object-contain" src="<?php echo esc_url( PAIJO_URI . '/assets/images/logo.png?ver=' . paijo_asset_version( 'assets/images/logo.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-						<img class="custom-logo custom-logo-white h-10 w-auto object-contain" src="<?php echo esc_url( PAIJO_URI . '/assets/images/logo-white.png?ver=' . paijo_asset_version( 'assets/images/logo-white.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
-					<?php endif; ?>
-				</a>
+					<a class="flex items-center no-underline" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img class="custom-logo h-10 w-auto object-contain" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+					</a>
 			</div>
 
-			<!-- Column 4: Tagline Inovatif & Terpercaya (Right) -->
-			<div class="flex justify-end items-center w-1/3 ml-auto z-10">
+			<!-- Column 4: Tagline Inovatif & Tepercaya (Right) -->
+			<div class="flex justify-end items-center w-1/3 ml-auto z-10 gap-3">
+				<button class="paijo-theme-switch" type="button" data-paijo-theme-toggle aria-label="<?php esc_attr_e( 'Toggle Theme', 'paijo' ); ?>">
+					<span class="sr-only">Toggle theme</span>
+					<!-- Switch thumb -->
+					<span class="paijo-theme-thumb">
+						<!-- Sun icon (Light mode) -->
+						<svg class="paijo-theme-icon paijo-theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="5"></circle>
+							<line x1="12" y1="1" x2="12" y2="3"></line>
+							<line x1="12" y1="21" x2="12" y2="23"></line>
+							<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+							<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+							<line x1="1" y1="12" x2="3" y2="12"></line>
+							<line x1="21" y1="12" x2="23" y2="12"></line>
+							<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+							<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+						</svg>
+						<!-- Moon icon (Dark mode) -->
+						<svg class="paijo-theme-icon paijo-theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+						</svg>
+					</span>
+				</button>
 				<div class="hidden sm:flex items-center gap-2.5 text-right">
 					<div class="flex flex-col justify-center font-sans text-right">
 						<span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] text-white leading-tight">
 							Inovatif
 						</span>
 						<span class="text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] text-white leading-tight">
-							Terpercaya
+							Tepercaya
 						</span>
 					</div>
 					<!-- Large Hashtag Icon -->

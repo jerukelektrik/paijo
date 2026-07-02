@@ -89,7 +89,7 @@ function paijo_register_content_management_cpt(): void {
 	);
 
 	register_post_type(
-		'toko_bercerita',
+		'feed_reels',
 		array(
 			'labels'            => array(
 				'name'                  => __( 'PJ Feed', 'paijo' ),
@@ -126,7 +126,7 @@ function paijo_register_content_management_cpt(): void {
 
 	register_taxonomy(
 		'pj_feed_category',
-		array( 'toko_bercerita' ),
+		array( 'feed_reels' ),
 		array(
 			'labels'            => array(
 				'name'                       => __( 'Kategori Feed', 'paijo' ),
@@ -158,8 +158,8 @@ function paijo_register_content_management_cpt(): void {
 	);
 
 	register_post_meta(
-		'toko_bercerita',
-		'_paijo_toko_embed_url',
+		'feed_reels',
+		'_paijo_feed_reels_embed_url',
 		array(
 			'type'              => 'string',
 			'single'            => true,
@@ -205,20 +205,13 @@ function paijo_ensure_content_category_terms(): void {
 }
 
 function paijo_get_featured_content_category_terms(): array {
-	$term_slugs = array(
-		'skena-jogsel',
-		'kultur-by-pandangan-jogja',
-		'derby-istimewa',
-		'kuliner-berbintang',
-	);
-	$terms      = array();
+	$terms = get_terms( array(
+		'taxonomy'   => 'paijo_content_category',
+		'hide_empty' => false,
+	) );
 
-	foreach ( $term_slugs as $slug ) {
-		$term = get_term_by( 'slug', $slug, 'paijo_content_category' );
-
-		if ( $term && ! is_wp_error( $term ) ) {
-			$terms[] = $term;
-		}
+	if ( is_wp_error( $terms ) ) {
+		return array();
 	}
 
 	return $terms;
@@ -276,20 +269,20 @@ function paijo_ensure_feed_category_terms(): void {
 		return;
 	}
 
-	if ( ! term_exists( 'Toko Bercerita', 'pj_feed_category' ) ) {
+	if ( ! term_exists( 'Feed Reels', 'pj_feed_category' ) ) {
 		wp_insert_term(
-			__( 'Toko Bercerita', 'paijo' ),
+			__( 'Feed Reels', 'paijo' ),
 			'pj_feed_category',
 			array(
-				'slug' => 'toko-bercerita',
+				'slug' => 'feed-reels',
 			)
 		);
 	}
 
-	// Auto-assign existing posts to Toko Bercerita category if they have no category
+	// Auto-assign existing posts to Feed Reels category if they have no category
 	$posts = get_posts(
 		array(
-			'post_type'   => 'toko_bercerita',
+			'post_type'   => 'feed_reels',
 			'numberposts' => -1,
 			'post_status' => 'any',
 		)
@@ -297,7 +290,7 @@ function paijo_ensure_feed_category_terms(): void {
 
 	foreach ( $posts as $post ) {
 		if ( ! has_term( '', 'pj_feed_category', $post->ID ) ) {
-			wp_set_object_terms( $post->ID, 'toko-bercerita', 'pj_feed_category' );
+			wp_set_object_terms( $post->ID, 'feed-reels', 'pj_feed_category' );
 		}
 	}
 }
@@ -355,25 +348,25 @@ function paijo_flush_rewrites_on_term_change(): void {
 	flush_rewrite_rules();
 }
 
-function paijo_get_toko_metric( int $post_id, string $metric ): int {
+function paijo_get_feed_reels_metric( int $post_id, string $metric ): int {
 	$allowed = array( 'views', 'loves', 'shares' );
 
-	if ( ! in_array( $metric, $allowed, true ) || 'toko_bercerita' !== get_post_type( $post_id ) ) {
+	if ( ! in_array( $metric, $allowed, true ) || 'feed_reels' !== get_post_type( $post_id ) ) {
 		return 0;
 	}
 
-	return max( 0, (int) get_post_meta( $post_id, '_paijo_toko_' . $metric, true ) );
+	return max( 0, (int) get_post_meta( $post_id, '_paijo_feed_reels_' . $metric, true ) );
 }
 
-function paijo_update_toko_metric( int $post_id, string $metric, int $delta = 1 ): int {
-	$count = paijo_get_toko_metric( $post_id, $metric );
+function paijo_update_feed_reels_metric( int $post_id, string $metric, int $delta = 1 ): int {
+	$count = paijo_get_feed_reels_metric( $post_id, $metric );
 	$count = max( 0, $count + $delta );
-	update_post_meta( $post_id, '_paijo_toko_' . $metric, $count );
+	update_post_meta( $post_id, '_paijo_feed_reels_' . $metric, $count );
 
 	return $count;
 }
 
-function paijo_format_toko_metric( int $count ): string {
+function paijo_format_feed_reels_metric( int $count ): string {
 	if ( $count >= 1000000 ) {
 		return number_format_i18n( $count / 1000000, 1 ) . 'M';
 	}
@@ -385,16 +378,16 @@ function paijo_format_toko_metric( int $count ): string {
 	return number_format_i18n( $count );
 }
 
-add_action( 'wp_ajax_paijo_toko_metric', 'paijo_handle_toko_metric_ajax' );
-add_action( 'wp_ajax_nopriv_paijo_toko_metric', 'paijo_handle_toko_metric_ajax' );
-function paijo_handle_toko_metric_ajax(): void {
-	check_ajax_referer( 'paijo_toko_metric', 'nonce' );
+add_action( 'wp_ajax_paijo_feed_reels_metric', 'paijo_handle_feed_reels_metric_ajax' );
+add_action( 'wp_ajax_nopriv_paijo_feed_reels_metric', 'paijo_handle_feed_reels_metric_ajax' );
+function paijo_handle_feed_reels_metric_ajax(): void {
+	check_ajax_referer( 'paijo_feed_reels_metric', 'nonce' );
 
 	$post_id = isset( $_POST['post_id'] ) ? absint( $_POST['post_id'] ) : 0;
 	$metric  = isset( $_POST['metric'] ) ? sanitize_key( wp_unslash( $_POST['metric'] ) ) : '';
 	$delta   = isset( $_POST['delta'] ) ? (int) $_POST['delta'] : 1;
 
-	if ( ! $post_id || ! in_array( $metric, array( 'views', 'loves', 'shares' ), true ) || 'toko_bercerita' !== get_post_type( $post_id ) ) {
+	if ( ! $post_id || ! in_array( $metric, array( 'views', 'loves', 'shares' ), true ) || 'feed_reels' !== get_post_type( $post_id ) ) {
 		wp_send_json_error(
 			array(
 				'message' => __( 'Invalid metric request.', 'paijo' ),
@@ -403,12 +396,12 @@ function paijo_handle_toko_metric_ajax(): void {
 		);
 	}
 
-	$count = paijo_update_toko_metric( $post_id, $metric, $delta );
+	$count = paijo_update_feed_reels_metric( $post_id, $metric, $delta );
 
 	wp_send_json_success(
 		array(
 			'count'     => $count,
-			'formatted' => paijo_format_toko_metric( $count ),
+			'formatted' => paijo_format_feed_reels_metric( $count ),
 		)
 	);
 }

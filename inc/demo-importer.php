@@ -191,7 +191,7 @@ function paijo_demo_importer_page(): void {
 		<div class="paijo-import-content">
 			<div class="paijo-card-info">
 				<h3>Informasi Penting Sebelum Impor</h3>
-				<p>Proses ini akan mengimpor seluruh artikel dummy, halaman khusus, video Toko Bercerita, gambar pendukung, menu navigasi, dan konfigurasi customizer secara offline dari file local theme Anda. Konten bawaan WordPress yang tidak digunakan (seperti postingan 'Hello World') akan dihapus agar database bersih.</p>
+				<p>Proses ini akan mengimpor seluruh artikel dummy, halaman khusus, video Feed Reels, gambar pendukung, menu navigasi, dan konfigurasi customizer secara offline dari file local theme Anda. Konten bawaan WordPress yang tidak digunakan (seperti postingan 'Hello World') akan dihapus agar database bersih.</p>
 			</div>
 
 			<div class="paijo-btn-container" id="paijo-action-section">
